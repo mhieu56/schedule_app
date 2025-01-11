@@ -1,0 +1,683 @@
+<tbody><tr>
+		<td style="height: 178px">
+        <div align="center">
+		<table border="0" width="98%" id="table172" cellspacing="0" cellpadding="0">
+			<tbody><tr>
+				<td height="8" colspan="2">
+				<img border="0" src="images/dot.gif" width="1" height="1">
+				</td>
+			</tr>
+			<tr>
+				<td height="22" align="left" width="50%" class="contentnews">
+				    Hệ đào tạo : <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_lblGraduateLevelName" class="titlenews">Cao đẳng</span>
+				</td>
+				<td height="22" align="left" width="50%" class="contentnews">
+				    Loại hình đào tạo : <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_lblStudyType" class="titlenews">Chính quy</span>
+				    
+				</td>
+			</tr>
+			<tr>
+				<td height="22" align="left" width="50%" class="contentnews">
+				    Khoa quản lý : <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_lblDepartment" class="titlenews">Bộ môn Tiếng Trung Quốc</span>
+				</td>
+				<td height="22" align="left" width="50%" class="contentnews">
+				    Ngành đào tạo : <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_lblOlogy" class="titlenews">TIẾNG TRUNG QUỐC</span>
+				</td>
+			</tr>
+			<tr>
+				<td height="22" align="left" width="50%" class="contentnews">
+				    Khóa học : <select name="ctl00$ContentPlaceHolder1$ctl00$ctl00$ctl00$ctl00$ddlCourse" onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$ctl00$ctl00$ctl00$ctl00$ddlCourse\',\'\')', 0)" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_ddlCourse">
+	<option selected="selected" value="CDCQK24">CDCQ-K24</option>
+
+</select>
+				</td>
+				<td height="22" align="left" width="50%" class="contentnews">
+				    Chương trình đào tạo : <select name="ctl00$ContentPlaceHolder1$ctl00$ctl00$ctl00$ctl00$ddlStudyprogram" onchange="javascript:setTimeout('__doPostBack(\'ctl00$ContentPlaceHolder1$ctl00$ctl00$ctl00$ctl00$ddlStudyprogram\',\'\')', 0)" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_ddlStudyprogram">
+	<option selected="selected" value="CDCQK24TQ">TIẾNG TRUNG QUỐC</option>
+
+</select>
+				</td>
+			</tr>
+			<tr>
+				<td height="22" colspan="2" align="left"> &nbsp;
+				</td>
+			</tr>
+			<tr>
+				<td height="22" colspan="2" align="left">
+				    <table id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester" cellspacing="0" style="width:100%;border-collapse:collapse;">
+	<tbody><tr>
+		<td>
+                        <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_lblGraduateStudyType" class="title">Học kỳ 1</span><br>
+			            <div>
+			<table cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan" style="color:#333333;border-color:Black;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+				<tbody><tr align="center" style="color:White;background-color:#0099FF;font-size:10pt;font-weight:bold;">
+					<th scope="col">STT</th><th scope="col">Mã học phần</th><th scope="col">Tên học phần</th><th scope="col">Số tín chỉ</th><th scope="col">Loại học phần</th><th scope="col">Chương trình môn học</th>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl02_lblOrder">1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl02_lblCurriculumID">CSC117010</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl02_lblCurriculumName">Nhập môn Tiếng Trung Quốc</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl02_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl02_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl02_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117010" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl03_lblOrder">2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl03_lblCurriculumID">CSC117021</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl03_lblCurriculumName">Nghe - Nói Tiếng Trung Quốc 1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl03_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl03_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl03_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117021" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl04_lblOrder">3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl04_lblCurriculumID">CSC117031</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl04_lblCurriculumName">Đọc hiểu Tiếng Trung Quốc 1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl04_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl04_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl04_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117031" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl05_lblOrder">4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl05_lblCurriculumID">CSC117041</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl05_lblCurriculumName">Viết Tiếng Trung Quốc 1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl05_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl05_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl05_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117041" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl06_lblOrder">5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl06_lblCurriculumID">CSC117051</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl06_lblCurriculumName">Ngữ pháp Tiếng Trung Quốc 1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl06_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl06_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl06_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117051" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl07_lblOrder">6</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl07_lblCurriculumID">DCC100220</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl07_lblCurriculumName">Pháp luật</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl07_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl07_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl07_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=DCC100220" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl08_lblOrder">7</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl08_lblCurriculumID">DCK100031</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl08_lblCurriculumName">Giáo dục thể chất 1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl08_lblCredits">1.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl08_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl00_grvHocphan_ctl08_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=DCK100031" target="_blank">Xem</a>
+                            </td>
+				</tr>
+			</tbody></table>
+		</div>
+                    </td>
+	</tr><tr>
+		<td>
+                        <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_lblGraduateStudyType" class="title">Học kỳ 2</span><br>
+			            <div>
+			<table cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan" style="color:#333333;border-color:Black;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+				<tbody><tr align="center" style="color:White;background-color:#0099FF;font-size:10pt;font-weight:bold;">
+					<th scope="col">STT</th><th scope="col">Mã học phần</th><th scope="col">Tên học phần</th><th scope="col">Số tín chỉ</th><th scope="col">Loại học phần</th><th scope="col">Chương trình môn học</th>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl02_lblOrder">1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl02_lblCurriculumID">CSC117022</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl02_lblCurriculumName">Nghe - Nói Tiếng Trung Quốc 2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl02_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl02_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl02_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117022" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl03_lblOrder">2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl03_lblCurriculumID">CSC117032</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl03_lblCurriculumName">Đọc hiểu Tiếng Trung Quốc 2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl03_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl03_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl03_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117032" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl04_lblOrder">3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl04_lblCurriculumID">CSC117042</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl04_lblCurriculumName">Viết Tiếng Trung Quốc 2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl04_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl04_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl04_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117042" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl05_lblOrder">4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl05_lblCurriculumID">CSC117052</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl05_lblCurriculumName">Ngữ pháp Tiếng Trung Quốc 2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl05_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl05_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl05_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117052" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl06_lblOrder">5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl06_lblCurriculumID">DCC100191</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl06_lblCurriculumName">Tin học</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl06_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl06_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl06_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=DCC100191" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl07_lblOrder">6</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl07_lblCurriculumID">DCC100280</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl07_lblCurriculumName">Giáo dục chính trị</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl07_lblCredits">4.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl07_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl07_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=DCC100280" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl08_lblOrder">7</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl08_lblCurriculumID">DCK100032</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl08_lblCurriculumName">Giáo dục thể chất 2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl08_lblCredits">1.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl08_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl01_grvHocphan_ctl08_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=DCK100032" target="_blank">Xem</a>
+                            </td>
+				</tr>
+			</tbody></table>
+		</div>
+                    </td>
+	</tr><tr>
+		<td>
+                        <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_lblGraduateStudyType" class="title">Học kỳ 3</span><br>
+			            <div>
+			<table cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan" style="color:#333333;border-color:Black;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+				<tbody><tr align="center" style="color:White;background-color:#0099FF;font-size:10pt;font-weight:bold;">
+					<th scope="col">STT</th><th scope="col">Mã học phần</th><th scope="col">Tên học phần</th><th scope="col">Số tín chỉ</th><th scope="col">Loại học phần</th><th scope="col">Chương trình môn học</th>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl02_lblOrder">1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl02_lblCurriculumID">CSC117023</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl02_lblCurriculumName">Nghe - Nói Tiếng Trung Quốc 3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl02_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl02_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl02_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117023" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl03_lblOrder">2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl03_lblCurriculumID">CSC117033</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl03_lblCurriculumName">Đọc hiểu Tiếng Trung Quốc 3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl03_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl03_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl03_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117033" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl04_lblOrder">3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl04_lblCurriculumID">CSC117043</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl04_lblCurriculumName">Viết Tiếng Trung Quốc 3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl04_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl04_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl04_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117043" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl05_lblOrder">4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl05_lblCurriculumID">CSC117053</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl05_lblCurriculumName">Ngữ pháp Tiếng Trung Quốc 3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl05_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl05_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl05_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117053" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl06_lblOrder">5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl06_lblCurriculumID">CSC117060</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl06_lblCurriculumName">Lịch sử-Văn hóa-Xã hội Trung Quốc</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl06_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl06_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl06_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CSC117060" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl07_lblOrder">6</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl07_lblCurriculumID">DCC100290</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl07_lblCurriculumName">Giáo dục quốc phòng và an ninh</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl07_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl07_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl07_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=DCC100290" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl08_lblOrder">7</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl08_lblCurriculumID">NNK100040</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl08_lblCurriculumName">Tiếng Anh 1B</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl08_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl08_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl02_grvHocphan_ctl08_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=NNK100040" target="_blank">Xem</a>
+                            </td>
+				</tr>
+			</tbody></table>
+		</div>
+                    </td>
+	</tr><tr>
+		<td>
+                        <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_lblGraduateStudyType" class="title">Học kỳ 4</span><br>
+			            <div>
+			<table cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan" style="color:#333333;border-color:Black;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+				<tbody><tr align="center" style="color:White;background-color:#0099FF;font-size:10pt;font-weight:bold;">
+					<th scope="col">STT</th><th scope="col">Mã học phần</th><th scope="col">Tên học phần</th><th scope="col">Số tín chỉ</th><th scope="col">Loại học phần</th><th scope="col">Chương trình môn học</th>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl02_lblOrder">1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl02_lblCurriculumID">CNC117011</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl02_lblCurriculumName">Nghe - Nói Tiếng Trung Quốc 4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl02_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl02_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl02_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117011" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl03_lblOrder">2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl03_lblCurriculumID">CNC117021</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl03_lblCurriculumName">Đọc hiểu Tiếng Trung Quốc 4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl03_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl03_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl03_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117021" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl04_lblOrder">3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl04_lblCurriculumID">CNC117031</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl04_lblCurriculumName">Viết Tiếng Trung Quốc 4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl04_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl04_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl04_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117031" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl05_lblOrder">4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl05_lblCurriculumID">CNC117041</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl05_lblCurriculumName">Ngữ pháp Tiếng Trung Quốc 4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl05_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl05_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl05_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117041" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl06_lblOrder">5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl06_lblCurriculumID">CNC117050</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl06_lblCurriculumName">Năng lực Tiếng Trung Quốc</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl06_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl06_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl06_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117050" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl07_lblOrder">6</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl07_lblCurriculumID">CNC117060</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl07_lblCurriculumName">Thực hành năng lực Tiếng Trung Quốc</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl07_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl07_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl07_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117060" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl08_lblOrder">7</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl08_lblCurriculumID">NNC100040</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl08_lblCurriculumName">Tiếng Anh 2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl08_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl08_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl03_grvHocphan_ctl08_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=NNC100040" target="_blank">Xem</a>
+                            </td>
+				</tr>
+			</tbody></table>
+		</div>
+                    </td>
+	</tr><tr>
+		<td>
+                        <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_lblGraduateStudyType" class="title">Học kỳ 5</span><br>
+			            <div>
+			<table cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan" style="color:#333333;border-color:Black;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+				<tbody><tr align="center" style="color:White;background-color:#0099FF;font-size:10pt;font-weight:bold;">
+					<th scope="col">STT</th><th scope="col">Mã học phần</th><th scope="col">Tên học phần</th><th scope="col">Số tín chỉ</th><th scope="col">Loại học phần</th><th scope="col">Chương trình môn học</th>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl02_lblOrder">1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl02_lblCurriculumID">CNC117012</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl02_lblCurriculumName">Nghe - Nói Tiếng Trung Quốc 5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl02_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl02_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl02_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117012" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl03_lblOrder">2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl03_lblCurriculumID">CNC117022</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl03_lblCurriculumName">Đọc hiểu Tiếng Trung Quốc 5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl03_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl03_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl03_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117022" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl04_lblOrder">3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl04_lblCurriculumID">CNC117032</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl04_lblCurriculumName">Viết Tiếng Trung Quốc 5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl04_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl04_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl04_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117032" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl05_lblOrder">4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl05_lblCurriculumID">CNC117042</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl05_lblCurriculumName">Ngữ pháp Tiếng Trung Quốc 5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl05_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl05_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl05_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117042" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl06_lblOrder">5</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl06_lblCurriculumID">CNC117070</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl06_lblCurriculumName">Năng lực Tiếng Trung Quốc nâng cao</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl06_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl06_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl06_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117070" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl07_lblOrder">6</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl07_lblCurriculumID">CNC117080</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl07_lblCurriculumName">Thực hành Năng lực Tiếng Trung Quốc nâng cao</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl07_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl07_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl07_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117080" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl08_lblOrder">7</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl08_lblCurriculumID">TNC117010</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl08_lblCurriculumName">Thực tập tốt nghiệp</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl08_lblCredits">5.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl08_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl04_grvHocphan_ctl08_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=TNC117010" target="_blank">Xem</a>
+                            </td>
+				</tr>
+			</tbody></table>
+		</div>
+                    </td>
+	</tr><tr>
+		<td>
+                        <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_lblGraduateStudyType" class="title">Học kỳ phụ</span><br>
+			            <div>
+			<table cellspacing="0" cellpadding="4" rules="all" border="1" id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan" style="color:#333333;border-color:Black;border-width:1px;border-style:solid;width:100%;border-collapse:collapse;">
+				<tbody><tr align="center" style="color:White;background-color:#0099FF;font-size:10pt;font-weight:bold;">
+					<th scope="col">STT</th><th scope="col">Mã học phần</th><th scope="col">Tên học phần</th><th scope="col">Số tín chỉ</th><th scope="col">Loại học phần</th><th scope="col">Chương trình môn học</th>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl02_lblOrder">1</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl02_lblCurriculumID">CNC117090</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl02_lblCurriculumName">Văn hóa doanh nghiệp Trung Quốc</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl02_lblCredits">2.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl02_lblCurriculumTypeName">Bắt Buộc</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl02_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117090" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl03_lblOrder">2</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl03_lblCurriculumID">CNC117100</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl03_lblCurriculumName">Tiếng Trung Quốc thưng mại</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl03_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl03_lblCurriculumTypeName">Tự Chọn</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl03_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117100" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:#FFFBD6;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl04_lblOrder">3</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl04_lblCurriculumID">CNC117110</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl04_lblCurriculumName">Tiếng Trung Quốc văn phòng</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl04_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl04_lblCurriculumTypeName">Tự Chọn</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl04_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117110" target="_blank">Xem</a>
+                            </td>
+				</tr><tr align="left" style="color:#333333;background-color:White;font-size:10pt;">
+					<td align="center" style="width:50px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl05_lblOrder">4</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl05_lblCurriculumID">CNC117120</span>
+                            </td><td align="left" style="width:400px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl05_lblCurriculumName">Tiếng Trung Quốc soạn thảo email</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl05_lblCredits">3.00</span>
+                            </td><td align="center" style="width:100px;">
+                                <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl05_lblCurriculumTypeName">Tự Chọn</span>
+                            </td><td align="center" style="width:100px;">
+                                <a id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_dtlSemester_ctl05_grvHocphan_ctl05_HyperLink1" href="/Portlets/UIS_MySpace/TaiFile.aspx?CurriculumID=CNC117120" target="_blank">Xem</a>
+                            </td>
+				</tr>
+			</tbody></table>
+		</div>
+                    </td>
+	</tr>
+</tbody></table>
+				</td>
+			</tr>
+		</tbody></table>
+		</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+		&nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td bgcolor="#e3ebef">
+		    <img border="0" src="images/dot.gif" width="1" height="1">
+	    </td>
+	</tr>
+	<tr>
+	    <td>&nbsp; <span id="ctl00_ContentPlaceHolder1_ctl00_ctl00_ctl00_ctl00_lblNewstitle" class="title"></span>
+	    </td>
+	</tr>
+	
+</tbody>
