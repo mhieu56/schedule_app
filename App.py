@@ -1109,14 +1109,15 @@ class ScheduleWindow(QMainWindow):
         if file_path:
             try:
                 with open(file_path, "r", encoding="utf-8") as file:
-                    class_info_dict = json.load(file)  # Đọc dữ liệu JSON và gán vào class_info
+                    data = json.load(file)
+                    for key,value in data.items():
+                        class_info_dict[key] = value
                     #Chuyển list (mặc định của json) thành tuple
                     for key, value in class_info_dict.items():
                         if value:
                             class_info_dict[key] = tuple(value)
                     
                     subject_lack_list = self.check_subject_in_file()
-                    print(subject_lack_list)
                     if subject_lack_list:
                         dialog = add_subject_to_database_dialog(self,subject_lack_list)
                         if dialog.exec():
