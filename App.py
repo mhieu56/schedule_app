@@ -291,30 +291,20 @@ class ListModel(QAbstractListModel):
         self.endResetModel()
 
 
-class ListClassesModel(QAbstractListModel):
+class list_model(QAbstractListModel):
     def __init__(self, data=None):
         super().__init__()
         self._data = data or []
 
+    
     def data(self, index, role):
+        text = self._data[index.row()]
         if role == Qt.DisplayRole:
-            (
-                subject_id,
-                class_id,
-                class_name,
-                teacher,
-                weekday,
-                time_start,
-                time_end,
-                room,
-            ) = self._data[index.row()]
-            class_name_len = len(class_name) + 3
-            teacher_len = len(teacher) + 3
-            if weekday == 8:
-                return f"{class_id:^11} | {class_name:^{class_name_len}} | {teacher:^{teacher_len}} | {"Chủ Nhật":^10} | {time_start:^7} > {time_end:^7} | {room:^7}"
-            return f"{class_id:^11} | {class_name:^{class_name_len}} | {teacher:^{teacher_len}} | {"Thứ " + str(weekday):^9} | {time_start:^7} > {time_end:^7} | {room:^7}"
+            return text
 
     def rowCount(self, index):
+        if not self._data:
+            return 0
         return len(self._data)
 
 
@@ -686,6 +676,67 @@ class find_subject_form(QDialog):
             dialog.exec()
         
 
+class subject_by_facaulty_dialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__()
+        self.setWindowTitle("Form Chọn Khoa và Học kỳ")
+        self.setModal(True)
+        
+        form_layout = QFormLayout()
+        
+        self.faculty = QComboBox()
+        self.faculty.addItems(db.get_all_faculty())
+        self.faculty.currentIndexChanged.connect(self.on_faculty_change)
+        self.faculty.setStyleSheet("padding: 5px 10px;")
+        self.faculty.setCurrentIndex(-1)
+        form_layout.addRow('Khoa: ',self.faculty)
+        
+        self.semester = QComboBox()
+        self.semester.setStyleSheet("padding: 5px 10px;")
+        self.semester.currentIndexChanged.connect(self.on_semester_change)
+        form_layout.addRow('Học kỳ:',self.semester)
+
+        button_layout = QHBoxLayout()
+        button_layout.setAlignment(Qt.AlignCenter)
+        self.ok_button = QPushButton('Xác Nhận')
+        self.ok_button.clicked.connect(self.accept)
+        self.ok_button.setMinimumWidth(150)
+        self.ok_button.setMinimumHeight(35)
+        
+        self.cancel_button = QPushButton('Hủy')
+        self.cancel_button.clicked.connect(self.reject)
+        self.cancel_button.setMinimumWidth(150)
+        self.cancel_button.setMinimumHeight(35)
+
+        button_layout.addWidget(self.ok_button)
+        button_layout.addWidget(self.cancel_button)
+        
+        self.class_list_view = QListView()
+        form_layout.addRow('',self.class_list_view)
+        
+        form_layout.addRow('', QLabel())
+        form_layout.addRow('',button_layout)
+        self.setLayout(form_layout)
+    
+    def get_semester(self):
+        return self.semester.currentText()
+    
+    def get_faculty_name(self):
+        return self.faculty.currentText()
+    
+    def on_semester_change(self):
+        faculty = self.faculty.currentText()
+        semester = self.semester.currentText()
+        data = db.get_subjects_by_faculty_semester(faculty,semester)
+        class_view_model = list_model(data)
+        self.class_list_view.setModel(class_view_model)
+    
+    def on_faculty_change(self):
+        faculty_name = self.faculty.currentText()
+        self.semester.clear()
+        self.semester.addItems(db.get_semester_by_faculty(faculty_name))
+
+
 def export_to_image(table_view, file_name):
     table_view.repaint()
     # Determine the size of the table view
@@ -904,6 +955,8 @@ class ScheduleWindow(QMainWindow):
         self.update_current_subject_button = QPushButton("Cập Nhật Nhanh")
         self.update_current_subject_button.clicked.connect(self.update_current_subject)
         self.update_current_subject_button.setToolTip("Cập nhật lớp của những môn hiện tại")
+        self.update_by_faculty_button = QPushButton("Cập Nhật Theo Khoa")
+        self.update_by_faculty_button.clicked.connect(self.update_by_faculty_subject)
         self.export_button = QPushButton("Lưu Ảnh", self)
         self.export_button.clicked.connect(self.export_schedule)
         self.add_subject_button = QPushButton("Tra Cứu", self)
@@ -919,7 +972,7 @@ class ScheduleWindow(QMainWindow):
         self.deselect_button.setStyleSheet(self.disable_button_style_string)
         
         #Danh sách nút
-        button_normal_list = [self.export_button,self.add_subject_button,self.deselect_button,self.update_current_subject_button]
+        button_normal_list = [self.update_by_faculty_button, self.export_button,self.add_subject_button,self.deselect_button,self.update_current_subject_button]
         button_red_list = [self.delete_subject_button,self.delete_class_button,self.delete_all_button]
         #Set style cho nút bình thường
         for button in button_normal_list + button_red_list:
@@ -938,7 +991,10 @@ class ScheduleWindow(QMainWindow):
         button_layout.addWidget(self.delete_class_button)
         button_layout.addWidget(self.delete_all_button)
         button_h_layout = QHBoxLayout()
-        button_h_layout.addWidget(self.update_current_subject_button, stretch=1)
+        update_h_layout = QHBoxLayout()
+        update_h_layout.addWidget(self.update_current_subject_button)
+        update_h_layout.addWidget(self.update_by_faculty_button)
+        button_h_layout.addLayout(update_h_layout, stretch=2)
         button_h_layout.addStretch(1)
         button_h_layout.addLayout(button_layout, stretch=3)
         button_h_layout.addStretch(1)
@@ -946,6 +1002,28 @@ class ScheduleWindow(QMainWindow):
 
         layout.addLayout(subject_class_label_layout)
         layout.addLayout(subject_class_layout, stretch=3)
+
+    def update_by_faculty_subject(self):
+        global subjects_list, class_info_dict, overlap_dict, subject_id_dict
+        dialog = subject_by_facaulty_dialog(self)
+        if dialog.exec():
+            faculty = dialog.get_faculty_name()
+            semester = dialog.get_semester()
+            data = db.get_subjects_by_faculty_semester(faculty,semester)
+            db.delete_class_all()
+            for subject_name in data:
+                subject_info = (db.get_subject_id_by_name(subject_name),subject_name)
+                db.add_subject(subject_info)
+            subjects_list = data
+            class_info_dict = {subjects_list[i]: None for i in range(len(subjects_list))}
+            overlap_dict = {subjects_list[i]: 0 for i in range(len(subjects_list))}
+            subject_id_dict = {subject[1]:subject[0] for subject in db.get_subjects_id_name()}
+            self.update_current_subject()
+            custom_dialog_2(self,'Cập nhật thành công!',False)
+            self.subjects_model._data = data
+            self.subjects_model.layoutChanged.emit()
+        else: 
+            pass
 
     def update_current_subject(self):
         for current_subject in subject_id_dict.values():
@@ -1104,11 +1182,6 @@ class ScheduleWindow(QMainWindow):
 
         self.classes_model.layoutChanged.emit()
         self.classes.hideColumn(0)
-
-    def update_online(self):
-        db.update_online()
-        dialog = custom_dialog_2(self, "Cập nhật thành công!", False)
-        dialog.exec()
 
     def on_filter_category_change(self):
         category = self.filter_category.currentText()

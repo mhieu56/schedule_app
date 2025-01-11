@@ -154,7 +154,9 @@ def find_subject(text):
         try:
             cursor.execute("SELECT * FROM all_subjects WHERE subject_name LIKE ?", ('%' + text + '%',))
             data = cursor.fetchall()
+            print(data)
             data_filtered = [("",subject[0],subject[1]) for subject in data]
+            print(data_filtered)
         except sqlite3.Error as e:
             print("Error: " + str(e))
             data_filtered = []
