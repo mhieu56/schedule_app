@@ -17,8 +17,8 @@ from PySide6.QtWidgets import (
     QLineEdit,
     QHeaderView,
     QComboBox,
-    QStyledItemDelegate,
     QFileDialog,
+    QProgressBar,
 )
 from PySide6.QtCore import (
     Qt,
@@ -26,12 +26,14 @@ from PySide6.QtCore import (
     QPoint,
     QAbstractTableModel,
     QModelIndex,
+    QTimer,
+    QDateTime
 )
 from PySide6.QtGui import QFont, QImage, QPainter, QColor, QBrush, QPixmap, QIcon, QAction, QKeySequence, QShortcut
 from sqlalchemy import over
 import db
 import search
-import requests, os, time, shutil
+import requests
 from openpyxl import Workbook
 from datetime import datetime
 
@@ -57,7 +59,7 @@ def get_latest_release():
     else:
         print("Không thể lấy thông tin từ GitHub")
         return None
-    
+
 def get_asset_url(latest_release):
     # Tìm URL tải file .exe từ release
     assets = latest_release["assets"]
@@ -73,10 +75,10 @@ def download_file(url, filename):
     if response.status_code == 200:
         with open(filename, "wb") as f:
             f.write(response.content)
-        print(f"Đã tải file {filename} thành công.")
+        return True
     else:
-        print("Không thể tải file.")
-
+        return False
+        
 def update_software():
     latest_release = get_latest_release()
     if latest_release:
@@ -85,24 +87,19 @@ def update_software():
         if asset_url:
             # Đặt tên file mới là v1.0.exe (hoặc tên tương ứng)
             filename = f"{get_latest_version()}.exe"
-
-            # Đóng ứng dụng trước khi thay thế file cũ
-            print("Đóng ứng dụng để cập nhật...")
-            time.sleep(2)  # Tạm dừng một chút trước khi thay thế file
+            
+            dialog_1 = custom_dialog_3(title='Đang tải...')
+            dialog_1.show()
 
             # Tải bản cập nhật mới
-            download_file(asset_url, filename)
-
-            # Đóng ứng dụng hiện tại (nếu cần)
-            print("Đang thay thế file .exe cũ...")
-            current_exe = sys.argv[0]  # Lấy tên file hiện tại của ứng dụng
-            shutil.move(filename, current_exe)  # Thay thế file cũ bằng file mới
-
-            # Khởi động lại ứng dụng
-            print("Khởi động lại ứng dụng...")
-            os.execv(current_exe, sys.argv)  # Khởi động lại ứng dụng
-
-    
+            if download_file(asset_url, filename):
+                dialog_1.close()
+                dialog_2 = custom_dialog_2(text=f'Đã tải xong {get_latest_version()}!',bold=False)
+                dialog_2.exec()
+            else:
+                dialog_2 = custom_dialog_2(text='Tải thất bại!',bold=False)
+                dialog_2.exec()
+           
 # Tạo dict để hiển thị trên TableWidget
 subjects_list = db.get_subjects_name()
 class_info_dict = {subjects_list[i]: None for i in range(len(subjects_list))}
@@ -273,6 +270,95 @@ class update_version_dialog(QDialog):
         self.setLayout(main_layout)
 
 
+class CountdownApp(QDialog):
+    def __init__(self,parent=None,future=QDateTime(2025, 2, 6, 8, 0, 0)):
+        super().__init__()
+        
+        current_time = QDateTime.currentDateTime()
+
+        # Khởi tạo ngày giờ trong tương lai (ví dụ: 2025-01-20 10:30)
+        self.future_datetime = future
+        
+        time_left = current_time.secsTo(self.future_datetime)
+
+        if time_left > 0:
+            days_left = time_left // 86400  # Số ngày còn lại
+            hours_left = (time_left % 86400) // 3600  # Số giờ còn lại
+            minutes_left = (time_left % 3600) // 60  # Số phút còn lại
+            seconds_left = time_left % 60  # Số giây còn lại
+
+        # Tạo các QLabel để hiển thị thời gian hiện tại, thời gian trong tương lai và thời gian còn lại
+        self.current_time_label = QLabel("Hiện tại là:")
+        self.current_time_label.setAlignment(Qt.AlignCenter)
+        self.current_time_label_2 = QLabel(current_time.toString('HH:mm:ss   dd-MM-yyyy'))
+        self.future_time_label = QLabel("Ngày đăng ký học phần:")
+        self.future_time_label.setAlignment(Qt.AlignCenter)
+        self.future_time_label_2 = QLabel(self.future_datetime.toString('HH:mm:ss   dd-MM-yyyy'))
+        self.time_left_label = QLabel("Bạn còn: ")
+        self.time_left_label.setAlignment(Qt.AlignCenter)
+        self.time_left_label_2 = QLabel("")
+        self.time_left_label_2.setText(f"{days_left} Ngày {hours_left:02}:{minutes_left:02}:{seconds_left:02}")
+        
+        #Thiết lập style cho các label
+        label_list = [self.current_time_label,self.future_time_label,self.time_left_label]
+        label_time_list = [self.current_time_label_2,self.future_time_label_2,self.time_left_label_2]
+        for label in label_list + label_time_list:
+            label.setAlignment(Qt.AlignCenter)
+            label.setStyleSheet("padding: 0px;")
+        for label in label_list:
+            label.setStyleSheet("font-size: 15px; color: #424242;")
+        for label in label_time_list:
+            label.setStyleSheet("font-size: 20px; color: #424242; font-weight: bold;")
+        self.future_time_label.setStyleSheet("font-size: 15px; color: #424242;padding-top: 15px;")
+
+        # Thiết lập layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.current_time_label)
+        layout.addWidget(self.current_time_label_2)
+        layout.addWidget(self.future_time_label)
+        layout.addWidget(self.future_time_label_2)
+        layout.addWidget(QLabel())
+        layout.addWidget(self.time_left_label)
+        layout.addWidget(self.time_left_label_2)
+        
+        self.ok_button = QPushButton(text="Xác Nhận")
+        self.ok_button.pressed.connect(self.accept)
+        self.ok_button.setMinimumWidth(150)
+        self.ok_button.setMinimumHeight(35)
+
+        layout.addWidget(QLabel())
+        layout.addWidget(self.ok_button, alignment=Qt.AlignCenter)
+        
+        self.setLayout(layout)
+
+        # Khởi tạo QTimer để cập nhật thời gian mỗi giây
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)  # Cập nhật mỗi giây
+
+        # Thiết lập cửa sổ
+        self.setWindowTitle("Countdown Timer")
+        self.resize(300,300)
+
+    def update_time(self):
+        # Lấy thời gian hiện tại
+        current_time = QDateTime.currentDateTime()
+        self.current_time_label_2.setText(current_time.toString('HH:mm:ss   dd-MM-yyyy'))
+
+        # Tính toán thời gian còn lại
+        time_left = current_time.secsTo(self.future_datetime)
+
+        if time_left > 0:
+            days_left = time_left // 86400  # Số ngày còn lại
+            hours_left = (time_left % 86400) // 3600  # Số giờ còn lại
+            minutes_left = (time_left % 3600) // 60  # Số phút còn lại
+            seconds_left = time_left % 60  # Số giây còn lại
+
+            self.time_left_label_2.setText(f"{days_left} Ngày {hours_left:02}:{minutes_left:02}:{seconds_left:02}")
+        else:
+            self.time_left_label.setText("Time Left: Time's up!")
+
+
 # Tạo Dialog chỉ có nút "Xác Nhận"
 class custom_dialog_2(QDialog):
     def __init__(self, parent=None, text="Chắc hông?", bold=True):
@@ -294,6 +380,23 @@ class custom_dialog_2(QDialog):
         self.ok_button.setMinimumHeight(35)
 
         layout.addWidget(self.ok_button, alignment=Qt.AlignCenter)
+        self.setLayout(layout)
+        self.resize(250, 120)
+
+
+# Tạo Dialog không có nút gì hết
+class custom_dialog_3(QDialog):
+    def __init__(self, parent=None,title='Second Thought', text="Chắc hông?"):
+        super().__init__()
+        self.setWindowTitle(title)
+        self.setModal(True)
+        layout = QVBoxLayout()
+        layout.setAlignment(Qt.AlignCenter)
+        self.label = QLabel(text)
+        self.label.setAlignment(Qt.AlignCenter)
+        self.label.setStyleSheet("padding: 10px; font-size: 16px; color: #474a4d;")
+        layout.addWidget(self.label)
+
         self.setLayout(layout)
         self.resize(250, 120)
 
@@ -912,10 +1015,11 @@ class ScheduleWindow(QMainWindow):
         
         help_menu = menubar.addMenu('Help')
         
-        about_action = QAction('About',self)
+        countdown_action = QAction('Countdown',self)
+        countdown_action.triggered.connect(self.countdown)
         update_action = QAction(f'Update{space_string}', self)
         update_action.triggered.connect(self.update_version)
-        help_menu.addAction(about_action)
+        help_menu.addAction(countdown_action)
         help_menu.addAction(update_action)
 
         # Tạo widget chính
@@ -1086,15 +1190,20 @@ class ScheduleWindow(QMainWindow):
         layout.addLayout(subject_class_label_layout)
         layout.addLayout(subject_class_layout, stretch=3)
 
+    def countdown(self):
+        dialog = CountdownApp(self,future=QDateTime(2025,2,6,8,0,0))
+        dialog.exec()
+
     def update_version(self):
         if current_version == get_latest_version():
-            dialog = custom_dialog_2(self,text="Bạn đang dùng phiên bản mới nhất!",bold=False)
+            dialog = custom_dialog_2(self,text=f"Bạn đang dùng phiên bản mới nhất!\n{current_version}",bold=False)
             dialog.exec()
         else:
-            string = f'Version hiện tại: {current_version}\nVersion mới nhất: {get_latest_version()}\n\nCập nhật chứ?'
+            string = f'Version hiện tại: {current_version}\nVersion mới nhất: {get_latest_version()}\n\nTải xuống chứ?'
             dialog = update_version_dialog(text=string)
             if dialog.exec():
-                pass
+                dialog.close()
+                update_software()
 
     def sort_subject_list(self):
         data = self.subjects_model._data

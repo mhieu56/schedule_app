@@ -1,65 +1,62 @@
-from PySide6.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget, QSystemTrayIcon
-from PySide6.QtCore import QTimer, QTime
-from PySide6.QtGui import QIcon
+import sys
+from PySide6.QtCore import QTimer, QDateTime
+from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
 
-class CountdownTimer(QMainWindow):
+class CountdownApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Countdown Timer")
+        
+        current_time = QDateTime.currentDateTime()
 
-        # Tạo layout chính
-        self.layout = QVBoxLayout()
+        # Khởi tạo ngày giờ trong tương lai (ví dụ: 2025-01-20 10:30)
+        self.future_datetime = QDateTime(2025, 2, 6, 8, 0, 0)
 
-        # Hiển thị thời gian
-        self.label = QLabel("00:00:00")
-        self.label.setStyleSheet("font-size: 40px; color: red;")
-        self.layout.addWidget(self.label)
+        # Tạo các QLabel để hiển thị thời gian hiện tại, thời gian trong tương lai và thời gian còn lại
+        self.current_time_label = QLabel(f"Hiện tại là:")
+        self.future_time_label = QLabel(f"Ngày đăng ký học phần: {self.future_datetime.toString('yyyy-MM-dd HH:mm:ss')}")
+        self.time_left_label = QLabel("Bạn còn: ")
 
-        # Nút bắt đầu
-        self.start_button = QPushButton("Start Countdown")
-        self.start_button.clicked.connect(self.start_countdown)
-        self.layout.addWidget(self.start_button)
+        # Thiết lập kiểu chữ cho các nhãn
+        self.current_time_label.setStyleSheet("font-size: 20px;")
+        self.future_time_label.setStyleSheet("font-size: 20px;")
+        self.time_left_label.setStyleSheet("font-size: 20px;")
 
-        # Container widget
-        container = QWidget()
-        container.setLayout(self.layout)
-        self.setCentralWidget(container)
+        # Thiết lập layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.current_time_label)
+        layout.addWidget(self.future_time_label)
+        layout.addWidget(self.time_left_label)
+        self.setLayout(layout)
 
-        # Timer
-        self.timer = QTimer()
-        self.timer.timeout.connect(self.update_timer)
-
-        # Thời gian còn lại
-        self.remaining_time = QTime(0, 0, 10)  # Đặt thời gian ban đầu là 10 giây
-
-        # QSystemTrayIcon
-        self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon("sunlight.png"))  # Đặt biểu tượng cho ứng dụng
-        self.tray_icon.show()  # Hiển thị biểu tượng trên thanh hệ thống
-
-    def start_countdown(self):
+        # Khởi tạo QTimer để cập nhật thời gian mỗi giây
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_time)
         self.timer.start(1000)  # Cập nhật mỗi giây
 
-    def update_timer(self):
-        self.remaining_time = self.remaining_time.addSecs(-1)  # Trừ đi 1 giây
-        self.label.setText(self.remaining_time.toString("hh:mm:ss"))
+        # Thiết lập cửa sổ
+        self.setWindowTitle("Countdown Timer")
+        self.setGeometry(200, 200, 400, 200)
 
-        # Kiểm tra nếu hết thời gian
-        if self.remaining_time == QTime(0, 0, 0):
-            self.timer.stop()
-            self.label.setText("Time's up!")
-            self.label.setStyleSheet("font-size: 40px; color: green;")
+    def update_time(self):
+        # Lấy thời gian hiện tại
+        current_time = QDateTime.currentDateTime()
+        self.current_time_label.setText(f"Hiện tại: {current_time.toString('yyyy-MM-dd HH:mm:ss')}")
 
-            # Gửi thông báo
-            self.tray_icon.showMessage(
-                "Countdown Complete",
-                "The countdown has finished!",
-                QSystemTrayIcon.Information,  # Loại thông báo
-                5000  # Hiển thị thông báo trong 5 giây
-            )
+        # Tính toán thời gian còn lại
+        time_left = current_time.secsTo(self.future_datetime)
+
+        if time_left > 0:
+            days_left = time_left // 86400  # Số ngày còn lại
+            hours_left = (time_left % 86400) // 3600  # Số giờ còn lại
+            minutes_left = (time_left % 3600) // 60  # Số phút còn lại
+            seconds_left = time_left % 60  # Số giây còn lại
+
+            self.time_left_label.setText(f"Bạn còn: {days_left} days {hours_left:02}:{minutes_left:02}:{seconds_left:02}")
+        else:
+            self.time_left_label.setText("Time Left: Time's up!")
 
 if __name__ == "__main__":
-    app = QApplication([])
-    window = CountdownTimer()
+    app = QApplication(sys.argv)
+    window = CountdownApp()
     window.show()
-    app.exec()
+    sys.exit(app.exec())

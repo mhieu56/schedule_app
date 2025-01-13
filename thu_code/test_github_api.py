@@ -66,6 +66,3 @@ def update_software():
             # Khởi động lại ứng dụng
             print("Khởi động lại ứng dụng...")
             os.execv(current_exe, sys.argv)  # Khởi động lại ứng dụng
-
-# Ví dụ: Khi người dùng chọn "Cập nhật"
-update_software()
