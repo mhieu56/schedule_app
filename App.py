@@ -309,7 +309,7 @@ class list_model(QAbstractListModel):
 
 
 class find_subject_form(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, subject_list_model=ListModel()):
         super().__init__(parent)
 
         button_height = 35
@@ -507,32 +507,6 @@ class find_subject_form(QDialog):
             semester_list.addItems(db.get_semester_by_faculty(faculty_name))
         else:
             semester_list.clear()
-        
-    def update_current_subject(self):
-        for current_subject in subject_id_dict.values():
-            data = search.search(current_subject)
-            if data:
-                data = self.filter_night(data)
-                data = self.filter_over(data)
-                class_list = []
-                if data:
-                    subject_id = data[0][1]
-                    subject_name = data[0][3]
-                    for row in data:
-                        class_row = (
-                            row[1],
-                            row[2],
-                            row[3],
-                            row[4],
-                            row[5],
-                            row[6],
-                            row[7],
-                            row[8]
-                        )
-                        class_list.append(class_row)
-                    db.update_database(subject_id,subject_name,class_list)
-        dialog = custom_dialog_2(self,"Cập nhật thành công!", False)
-        dialog.exec()
     
     def search_class_by_name(self):
         text = self.find_subject.text().strip()
@@ -653,7 +627,7 @@ class find_subject_form(QDialog):
             dialog = custom_dialog_2(None, f"Đã lưu file vào:   {file_path}", False)
             dialog.exec()
     
-    def update_database(self,parent):
+    def update_database(self,subject_list_model):
         data = self.classes_model._data
         class_list = []
         if data:
@@ -952,6 +926,8 @@ class ScheduleWindow(QMainWindow):
         # Thêm nút để kiểm tra khả năng chỉnh sửa
         self.button_height = 30
         button_layout = QHBoxLayout()
+        self.sort_button = QPushButton('Sắp Xếp')
+        self.sort_button.clicked.connect(self.sort_subject_list)
         self.update_current_subject_button = QPushButton("Cập Nhật Nhanh")
         self.update_current_subject_button.clicked.connect(self.update_current_subject)
         self.update_current_subject_button.setToolTip("Cập nhật lớp của những môn hiện tại")
@@ -963,8 +939,6 @@ class ScheduleWindow(QMainWindow):
         self.add_subject_button.clicked.connect(self.add_subject)
         self.delete_subject_button = QPushButton("Xóa Môn", self)
         self.delete_subject_button.clicked.connect(self.delete_subject)
-        self.delete_class_button = QPushButton("Xóa Lớp", self)
-        self.delete_class_button.clicked.connect(self.delete_class)
         self.delete_all_button = QPushButton("Xóa Tất Cả", self)
         self.delete_all_button.clicked.connect(self.delete_all)
         self.deselect_button = QPushButton("Bỏ Chọn", self)
@@ -972,26 +946,29 @@ class ScheduleWindow(QMainWindow):
         self.deselect_button.setStyleSheet(self.disable_button_style_string)
         
         #Danh sách nút
-        button_normal_list = [self.update_by_faculty_button, self.export_button,self.add_subject_button,self.deselect_button,self.update_current_subject_button]
-        button_red_list = [self.delete_subject_button,self.delete_class_button,self.delete_all_button]
+        button_normal_list = [self.sort_button,self.update_by_faculty_button, self.export_button,self.add_subject_button,self.deselect_button,self.update_current_subject_button]
+        button_red_list = [self.delete_subject_button,self.delete_all_button]
         #Set style cho nút bình thường
         for button in button_normal_list + button_red_list:
             button.setMinimumHeight(button_height)
-            button.setMaximumWidth(150)
+            button.setMaximumWidth(160)
         
         #Set style các cho nút xóa
         for button in button_red_list:
             button.setStyleSheet(red_button_style_string)
+        
+        self.sort_button.setMaximumWidth(90)
+        self.update_current_subject_button.setMaximumWidth(130)
         
         button_layout.addWidget(self.add_subject_button)
         button_layout.addWidget(self.export_button)
         button_layout.addWidget(self.deselect_button)
         button_layout.addWidget(QLabel(" "))
         button_layout.addWidget(self.delete_subject_button)
-        button_layout.addWidget(self.delete_class_button)
         button_layout.addWidget(self.delete_all_button)
         button_h_layout = QHBoxLayout()
         update_h_layout = QHBoxLayout()
+        update_h_layout.addWidget(self.sort_button)
         update_h_layout.addWidget(self.update_current_subject_button)
         update_h_layout.addWidget(self.update_by_faculty_button)
         button_h_layout.addLayout(update_h_layout, stretch=2)
@@ -1002,6 +979,12 @@ class ScheduleWindow(QMainWindow):
 
         layout.addLayout(subject_class_label_layout)
         layout.addLayout(subject_class_layout, stretch=3)
+
+    def sort_subject_list(self):
+        data = self.subjects_model._data
+        sorted_data = sorted(data, key=lambda subject: class_info_dict[subject] is None)
+        self.subjects_model._data = sorted_data
+        self.subjects_model.layoutChanged.emit()
 
     def update_by_faculty_subject(self):
         global subjects_list, class_info_dict, overlap_dict, subject_id_dict
@@ -1317,42 +1300,22 @@ class ScheduleWindow(QMainWindow):
                 pass
 
     def add_subject(self):
-        dialog = find_subject_form(self)
-        subject_info = ()
-        subject_db = db.get_subjects_id_name()
-        subject_id_list = [x[0] for x in subject_db]
-        subject_name_list = [x[1] for x in subject_db]
-        if dialog.exec():
-            subject_id = dialog.subject_id_edit.text().strip()
-            subject_name = dialog.subject_edit.text().strip()
-            while (
-                (subject_id in subject_id_list)
-                or (subject_name in subject_name_list)
-                or not subject_id
-                or not subject_name
-            ):
-                subject_id = dialog.subject_id_edit.text().strip()
-                subject_name = dialog.subject_edit.text().strip()
-                if (subject_id in subject_id_list) or (
-                    subject_name in subject_name_list
-                ):
-                    dialog_ok = custom_dialog_2(self, "Mã môn hoặc Tên môn đã tồn tại!")
-                    dialog_ok.exec()
-                    if not dialog.exec():
-                        break
-                elif not subject_id or not subject_name:
-                    dialog_ok = custom_dialog_2(self, "Không được để trống!")
-                    dialog_ok.exec()
-                    if not dialog.exec():
-                        break
-            subject_info += (subject_id,)
-            subject_info += (subject_name,)
-            try:
-                db.add_subject(subject_info=subject_info)
-                self.subjects_model._data.append((subject_name))
+        dialog = find_subject_form(subject_list_model=self.subjects_model)
+        global subjects_list, class_info_dict, overlap_dict, subject_id_dict
+        old_subjects_list_len = len(subjects_list)
+        if dialog.exec() == 0:
+            subjects_list = db.get_subjects_name()
+            if len(subjects_list) > old_subjects_list_len:
+                self.subjects_model._data = subjects_list
+                for subject in subjects_list:
+                    if class_info_dict.get(subject) is None:
+                        class_info_dict[subject] = None
+                    if overlap_dict.get(subject) is None:
+                        overlap_dict[subject] = 0
+                    if subject_id_dict.get(subject) is None:
+                        subject_id_dict[subject] = db.get_subject_id_by_name(subject)
+                self.update_current_subject()
                 self.subjects_model.layoutChanged.emit()
-            except:
-                print("Lỗi!")
 
     def on_subject_view_change(self):
         selected_indexes = self.subjects.selectedIndexes()
