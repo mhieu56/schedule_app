@@ -18,7 +18,6 @@ from PySide6.QtWidgets import (
     QHeaderView,
     QComboBox,
     QFileDialog,
-    QProgressBar,
 )
 from PySide6.QtCore import (
     Qt,
