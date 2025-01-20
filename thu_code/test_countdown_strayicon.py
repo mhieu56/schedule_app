@@ -1,19 +1,21 @@
 import sys
+
 from PySide6.QtCore import QTimer, QDateTime
 from PySide6.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout
+
 
 class CountdownApp(QWidget):
     def __init__(self):
         super().__init__()
-        
-        current_time = QDateTime.currentDateTime()
 
         # Khởi tạo ngày giờ trong tương lai (ví dụ: 2025-01-20 10:30)
         self.future_datetime = QDateTime(2025, 2, 6, 8, 0, 0)
 
         # Tạo các QLabel để hiển thị thời gian hiện tại, thời gian trong tương lai và thời gian còn lại
         self.current_time_label = QLabel(f"Hiện tại là:")
-        self.future_time_label = QLabel(f"Ngày đăng ký học phần: {self.future_datetime.toString('yyyy-MM-dd HH:mm:ss')}")
+        self.future_time_label = QLabel(
+            f"Ngày đăng ký học phần: {self.future_datetime.toString('yyyy-MM-dd HH:mm:ss')}"
+        )
         self.time_left_label = QLabel("Bạn còn: ")
 
         # Thiết lập kiểu chữ cho các nhãn
@@ -40,7 +42,9 @@ class CountdownApp(QWidget):
     def update_time(self):
         # Lấy thời gian hiện tại
         current_time = QDateTime.currentDateTime()
-        self.current_time_label.setText(f"Hiện tại: {current_time.toString('yyyy-MM-dd HH:mm:ss')}")
+        self.current_time_label.setText(
+            f"Hiện tại: {current_time.toString('yyyy-MM-dd HH:mm:ss')}"
+        )
 
         # Tính toán thời gian còn lại
         time_left = current_time.secsTo(self.future_datetime)
@@ -51,9 +55,12 @@ class CountdownApp(QWidget):
             minutes_left = (time_left % 3600) // 60  # Số phút còn lại
             seconds_left = time_left % 60  # Số giây còn lại
 
-            self.time_left_label.setText(f"Bạn còn: {days_left} days {hours_left:02}:{minutes_left:02}:{seconds_left:02}")
+            self.time_left_label.setText(
+                f"Bạn còn: {days_left} days {hours_left:02}:{minutes_left:02}:{seconds_left:02}"
+            )
         else:
             self.time_left_label.setText("Time Left: Time's up!")
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

@@ -1,5 +1,27 @@
-from re import sub
-import sys, json
+import json
+import sys
+from datetime import datetime
+
+import requests
+from PySide6.QtCore import (
+    Qt,
+    QAbstractListModel,
+    QPoint,
+    QAbstractTableModel,
+    QModelIndex,
+    QTimer,
+    QDateTime,
+)
+from PySide6.QtGui import (
+    QFont,
+    QImage,
+    QPainter,
+    QColor,
+    QPixmap,
+    QAction,
+    QKeySequence,
+    QShortcut,
+)
 from PySide6.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -19,35 +41,27 @@ from PySide6.QtWidgets import (
     QComboBox,
     QFileDialog,
 )
-from PySide6.QtCore import (
-    Qt,
-    QAbstractListModel,
-    QPoint,
-    QAbstractTableModel,
-    QModelIndex,
-    QTimer,
-    QDateTime
-)
-from PySide6.QtGui import QFont, QImage, QPainter, QColor, QBrush, QPixmap, QIcon, QAction, QKeySequence, QShortcut
-from sqlalchemy import over
+
 import db
 import search
-import requests
-from openpyxl import Workbook
-from datetime import datetime
 
-current_version = 'v1.0'
+current_version = "v1.0"
+
+
 def get_latest_version():
     github_url = "https://api.github.com/repos/mhieu56/schedule_app/releases/latest"
-    
+
     response = requests.get(github_url)
     if response.status_code == 200:
         latest_release = response.json()
-        latest_version = latest_release["tag_name"]  # Lấy tag version từ release mới nhất
+        latest_version = latest_release[
+            "tag_name"
+        ]  # Lấy tag version từ release mới nhất
         return latest_version
     else:
         print("Không thể lấy thông tin từ GitHub")
         return None
+
 
 def get_latest_release():
     github_url = "https://api.github.com/repos/mhieu56/schedule_app/releases/latest"
@@ -59,6 +73,7 @@ def get_latest_release():
         print("Không thể lấy thông tin từ GitHub")
         return None
 
+
 def get_asset_url(latest_release):
     # Tìm URL tải file .exe từ release
     assets = latest_release["assets"]
@@ -67,6 +82,7 @@ def get_asset_url(latest_release):
             return asset["browser_download_url"]
     print("Không tìm thấy file .exe trong release.")
     return None
+
 
 def download_file(url, filename):
     # Tải file về và lưu
@@ -77,7 +93,8 @@ def download_file(url, filename):
         return True
     else:
         return False
-        
+
+
 def update_software():
     latest_release = get_latest_release()
     if latest_release:
@@ -86,19 +103,22 @@ def update_software():
         if asset_url:
             # Đặt tên file mới là v1.0.exe (hoặc tên tương ứng)
             filename = f"{get_latest_version()}.exe"
-            
-            dialog_1 = custom_dialog_3(title='Đang tải...')
+
+            dialog_1 = CustomDialog3(title="Đang tải...")
             dialog_1.show()
 
             # Tải bản cập nhật mới
             if download_file(asset_url, filename):
                 dialog_1.close()
-                dialog_2 = custom_dialog_2(text=f'Đã tải xong {get_latest_version()}!',bold=False)
+                dialog_2 = CustomDialog2(
+                    text=f"Đã tải xong {get_latest_version()}!", bold=False
+                )
                 dialog_2.exec()
             else:
-                dialog_2 = custom_dialog_2(text='Tải thất bại!',bold=False)
+                dialog_2 = CustomDialog2(text="Tải thất bại!", bold=False)
                 dialog_2.exec()
-           
+
+
 # Tạo dict để hiển thị trên TableWidget
 subjects_list = db.get_subjects_name()
 class_info_dict = {subjects_list[i]: None for i in range(len(subjects_list))}
@@ -111,7 +131,7 @@ bold_font.setBold(True)
 italic_font = QFont()
 italic_font.setItalic(True)
 
-#Chuyển đổi giữa số và chữ của ngày trong tuần
+# Chuyển đổi giữa số và chữ của ngày trong tuần
 weekday_int = {
     "Thứ Hai": 2,
     "Thứ Ba": 3,
@@ -130,14 +150,14 @@ int_weekday = {
     7: "Thứ Bảy",
     8: "Chủ Nhật",
 }
-#True sẽ hiển thị Login Form, False sẽ hiển thị thẳng vào ScheduleWindow
+# True sẽ hiển thị Login Form, False sẽ hiển thị thẳng vào ScheduleWindow
 login = False
-#Lưu danh sách những môn đang bị trùng lịch, 1: trùng, 0: không trùng
+# Lưu danh sách những môn đang bị trùng lịch, 1: trùng, 0: không trùng
 overlap_dict = {subjects_list[i]: 0 for i in range(len(subjects_list))}
-#Danh sách key:value của môn học:id môn học
-subject_id_dict = {subject[1]:subject[0] for subject in db.get_subjects_id_name()}
+# Danh sách key:value của môn học:id môn học
+subject_id_dict = {subject[1]: subject[0] for subject in db.get_subjects_id_name()}
 
-#Nút màu đỏ
+# Nút màu đỏ
 red_button_style_string = """
     QPushButton {
             background-color:rgb(231, 59, 108);
@@ -157,8 +177,10 @@ red_button_style_string = """
 
 class TableModel(QAbstractTableModel):
 
-    def __init__(self, data, headers):
+    def __init__(self, data=None, headers=None):
         super().__init__()
+        if headers is None:
+            headers = []
         self._data = data
         self._headers = headers
 
@@ -178,7 +200,9 @@ class TableModel(QAbstractTableModel):
                 return Qt.AlignCenter
 
     def rowCount(self, index=QModelIndex()):
-        return len(self._data)
+        if self._data and len(self._data) > 0:
+            return len(self._data)
+        return 0
 
     def columnCount(self, index=QModelIndex()):
         if self._data and len(self._data) > 0:
@@ -195,10 +219,11 @@ class TableModel(QAbstractTableModel):
 
 
 # Hàm tạo Dialog với text=Truyền vào
-class custom_dialog(QDialog):
+class CustomDialog(QDialog):
     def __init__(self, parent=None, text="Bạn chắc chứ?", bold=True):
         super().__init__()
 
+        self.parent = parent
         self.setWindowTitle("Second Thought?")
         self.setModal(True)
         self.setMinimumWidth(250)
@@ -233,11 +258,12 @@ class custom_dialog(QDialog):
         self.setLayout(main_layout)
 
 
-#Update Version Dialog
-class update_version_dialog(QDialog):
+# Update Version Dialog
+class UpdateVersionDialog(QDialog):
     def __init__(self, parent=None, text="Bạn chắc chứ?"):
         super().__init__()
 
+        self.parent = parent
         self.setWindowTitle("Tìm kiếm bản cập nhật")
         self.setModal(True)
         self.setMinimumWidth(250)
@@ -270,14 +296,16 @@ class update_version_dialog(QDialog):
 
 
 class CountdownApp(QDialog):
-    def __init__(self,parent=None,future=QDateTime(2025, 2, 6, 8, 0, 0)):
+    def __init__(self, parent=None, future=QDateTime(2025, 2, 6, 8, 0, 0)):
+        self.parent = parent
+        days_left, hours_left, minutes_left, seconds_left = 0, 0, 0, 0
         super().__init__()
-        
+
         current_time = QDateTime.currentDateTime()
 
         # Khởi tạo ngày giờ trong tương lai (ví dụ: 2025-01-20 10:30)
         self.future_datetime = future
-        
+
         time_left = current_time.secsTo(self.future_datetime)
 
         if time_left > 0:
@@ -289,18 +317,32 @@ class CountdownApp(QDialog):
         # Tạo các QLabel để hiển thị thời gian hiện tại, thời gian trong tương lai và thời gian còn lại
         self.current_time_label = QLabel("Hiện tại là:")
         self.current_time_label.setAlignment(Qt.AlignCenter)
-        self.current_time_label_2 = QLabel(current_time.toString('HH:mm:ss   dd-MM-yyyy'))
+        self.current_time_label_2 = QLabel(
+            current_time.toString("HH:mm:ss   dd-MM-yyyy")
+        )
         self.future_time_label = QLabel("Ngày đăng ký học phần:")
         self.future_time_label.setAlignment(Qt.AlignCenter)
-        self.future_time_label_2 = QLabel(self.future_datetime.toString('HH:mm:ss   dd-MM-yyyy'))
+        self.future_time_label_2 = QLabel(
+            self.future_datetime.toString("HH:mm:ss   dd-MM-yyyy")
+        )
         self.time_left_label = QLabel("Bạn còn: ")
         self.time_left_label.setAlignment(Qt.AlignCenter)
         self.time_left_label_2 = QLabel("")
-        self.time_left_label_2.setText(f"{days_left} Ngày {hours_left:02}:{minutes_left:02}:{seconds_left:02}")
-        
-        #Thiết lập style cho các label
-        label_list = [self.current_time_label,self.future_time_label,self.time_left_label]
-        label_time_list = [self.current_time_label_2,self.future_time_label_2,self.time_left_label_2]
+        self.time_left_label_2.setText(
+            f"{days_left} Ngày {hours_left:02}:{minutes_left:02}:{seconds_left:02}"
+        )
+
+        # Thiết lập style cho các label
+        label_list = [
+            self.current_time_label,
+            self.future_time_label,
+            self.time_left_label,
+        ]
+        label_time_list = [
+            self.current_time_label_2,
+            self.future_time_label_2,
+            self.time_left_label_2,
+        ]
         for label in label_list + label_time_list:
             label.setAlignment(Qt.AlignCenter)
             label.setStyleSheet("padding: 0px;")
@@ -308,7 +350,9 @@ class CountdownApp(QDialog):
             label.setStyleSheet("font-size: 15px; color: #424242;")
         for label in label_time_list:
             label.setStyleSheet("font-size: 20px; color: #424242; font-weight: bold;")
-        self.future_time_label.setStyleSheet("font-size: 15px; color: #424242;padding-top: 15px;")
+        self.future_time_label.setStyleSheet(
+            "font-size: 15px; color: #424242;padding-top: 15px;"
+        )
 
         # Thiết lập layout
         layout = QVBoxLayout()
@@ -319,7 +363,7 @@ class CountdownApp(QDialog):
         layout.addWidget(QLabel())
         layout.addWidget(self.time_left_label)
         layout.addWidget(self.time_left_label_2)
-        
+
         self.ok_button = QPushButton(text="Xác Nhận")
         self.ok_button.pressed.connect(self.accept)
         self.ok_button.setMinimumWidth(150)
@@ -327,7 +371,7 @@ class CountdownApp(QDialog):
 
         layout.addWidget(QLabel())
         layout.addWidget(self.ok_button, alignment=Qt.AlignCenter)
-        
+
         self.setLayout(layout)
 
         # Khởi tạo QTimer để cập nhật thời gian mỗi giây
@@ -337,12 +381,14 @@ class CountdownApp(QDialog):
 
         # Thiết lập cửa sổ
         self.setWindowTitle("Countdown Timer")
-        self.resize(300,300)
+        self.resize(300, 300)
 
     def update_time(self):
         # Lấy thời gian hiện tại
         current_time = QDateTime.currentDateTime()
-        self.current_time_label_2.setText(current_time.toString('HH:mm:ss   dd-MM-yyyy'))
+        self.current_time_label_2.setText(
+            current_time.toString("HH:mm:ss   dd-MM-yyyy")
+        )
 
         # Tính toán thời gian còn lại
         time_left = current_time.secsTo(self.future_datetime)
@@ -353,15 +399,18 @@ class CountdownApp(QDialog):
             minutes_left = (time_left % 3600) // 60  # Số phút còn lại
             seconds_left = time_left % 60  # Số giây còn lại
 
-            self.time_left_label_2.setText(f"{days_left} Ngày {hours_left:02}:{minutes_left:02}:{seconds_left:02}")
+            self.time_left_label_2.setText(
+                f"{days_left} Ngày {hours_left:02}:{minutes_left:02}:{seconds_left:02}"
+            )
         else:
             self.time_left_label.setText("Time Left: Time's up!")
 
 
 # Tạo Dialog chỉ có nút "Xác Nhận"
-class custom_dialog_2(QDialog):
+class CustomDialog2(QDialog):
     def __init__(self, parent=None, text="Chắc hông?", bold=True):
         super().__init__()
+        self.parent = parent
         self.setWindowTitle("Second Thought")
         self.setModal(True)
         layout = QVBoxLayout()
@@ -384,9 +433,10 @@ class custom_dialog_2(QDialog):
 
 
 # Tạo Dialog không có nút gì hết
-class custom_dialog_3(QDialog):
-    def __init__(self, parent=None,title='Second Thought', text="Chắc hông?"):
+class CustomDialog3(QDialog):
+    def __init__(self, parent=None, title="Second Thought", text="Chắc hông?"):
         super().__init__()
+        self.parent = parent
         self.setWindowTitle(title)
         self.setModal(True)
         layout = QVBoxLayout()
@@ -400,29 +450,32 @@ class custom_dialog_3(QDialog):
         self.resize(250, 120)
 
 
-class add_subject_to_database_dialog(QDialog):
-    def __init__(self, parent=None, subject_list=[]):
+class AddSubjectToDatabaseDialog(QDialog):
+    def __init__(self, parent=None, subject_list=None):
         super().__init__()
+        self.parent = parent
+        if subject_list is None:
+            subject_list = []
         self.setWindowTitle("Second Thought")
         self.setModal(True)
         layout = QVBoxLayout()
         layout.setAlignment(Qt.AlignCenter)
-        subject_string = ''
+        subject_string = ""
         for i in subject_list:
-            subject_string += f'{i}\n'
-        
-        self.label_1 = QLabel('Cơ sở dữ liệu hiện tại của bạn thiếu những môn sau:\n')
+            subject_string += f"{i}\n"
+
+        self.label_1 = QLabel("Cơ sở dữ liệu hiện tại của bạn thiếu những môn sau:\n")
         self.label_1.setAlignment(Qt.AlignCenter)
         self.subject_list_label = QLabel(subject_string)
         self.subject_list_label.setFont(bold_font)
         self.subject_list_label.setAlignment(Qt.AlignCenter)
-        self.label_2 = QLabel('Muốn thêm vào hông?\n')
+        self.label_2 = QLabel("Muốn thêm vào hông?\n")
         self.label_2.setAlignment(Qt.AlignCenter)
 
         layout.addWidget(self.label_1)
         layout.addWidget(self.subject_list_label)
         layout.addWidget(self.label_2)
-        
+
         button_layout = QHBoxLayout()
 
         self.ok_button = QPushButton(text="Đồng Ý")
@@ -431,13 +484,13 @@ class add_subject_to_database_dialog(QDialog):
         self.ok_button.setMaximumWidth(150)
         self.ok_button.setMinimumHeight(35)
         self.ok_button.setFont(bold_font)
-        
+
         self.cancel_button = QPushButton(text="Thôi Khỏi")
         self.cancel_button.pressed.connect(self.reject)
         self.cancel_button.setMinimumWidth(150)
         self.cancel_button.setMaximumWidth(150)
         self.cancel_button.setMinimumHeight(35)
-        
+
         button_layout.addWidget(self.ok_button)
         button_layout.addWidget(self.cancel_button)
 
@@ -446,13 +499,14 @@ class add_subject_to_database_dialog(QDialog):
         self.resize(250, 120)
 
 
-#Subject Model
+# Subject Model
 class ListModel(QAbstractListModel):
     def __init__(self, data=None):
         super().__init__()
         self._data = data or []
 
-    def create_pixmap_from_int(self, value, extra_text=""):
+    @staticmethod
+    def create_pixmap_from_int(value, extra_text=""):
         pixmap = QPixmap(35, 20)  # Kích thước hình ảnh
         pixmap.fill(Qt.transparent)  # Nền trong suốt
         painter = QPainter(pixmap)
@@ -465,7 +519,7 @@ class ListModel(QAbstractListModel):
         painter.end()
         return pixmap
 
-    def data(self, index, role):
+    def data(self, index: QModelIndex, role: int = Qt.DisplayRole):
         text = self._data[index.row()]
         if role == Qt.DisplayRole:
             return text
@@ -486,11 +540,11 @@ class ListModel(QAbstractListModel):
             if overlap_dict[text]:
                 return bold_font
 
-    def rowCount(self, index):
+    def rowCount(self, parent: QModelIndex = QModelIndex()):
         if not self._data:
             return 0
         return len(self._data)
-    
+
     def refresh(self, new_data):
         """Làm mới lại model."""
         self.beginResetModel()
@@ -498,30 +552,27 @@ class ListModel(QAbstractListModel):
         self.endResetModel()
 
 
-class list_model(QAbstractListModel):
+class CustomListModel(QAbstractListModel):
     def __init__(self, data=None):
         super().__init__()
         self._data = data or []
 
-    
-    def data(self, index, role):
+    def data(self, index: QModelIndex, role: int = Qt.DisplayRole):
         text = self._data[index.row()]
         if role == Qt.DisplayRole:
             return text
 
-    def rowCount(self, index):
+    def rowCount(self, parent: QModelIndex = QModelIndex()):
         if not self._data:
             return 0
         return len(self._data)
 
 
-class find_subject_form(QDialog):
+class FindSubjectForm(QDialog):
     def __init__(self, parent=None, subject_list_model=ListModel()):
-        super().__init__(parent)
+        super(FindSubjectForm, self).__init__(parent)
 
-        button_height = 35
-        button_min_width = 150
-        button_max_width = 300
+        self.subject_list_model = subject_list_model
 
         self.setWindowTitle("Form Tra Cứu")
         self.setGeometry(150, 120, 1200, 600)
@@ -536,11 +587,11 @@ class find_subject_form(QDialog):
         center_layout.addStretch(1)
         center_layout.addWidget(QLabel("Mã môn:  "))
         center_layout.addWidget(self.subject_id_edit, stretch=2)
-        #Nút tra cứu
+        # Nút tra cứu
         self.search_button = QPushButton(text="Tra Cứu")
-        self.search_button.setMinimumHeight(button_height-6)
-        self.search_button.setMinimumWidth(button_min_width-40)
-        self.search_button.setMaximumWidth(button_max_width-40)
+        self.search_button.setMinimumHeight(button_height - 6)
+        self.search_button.setMinimumWidth(button_min_width - 40)
+        self.search_button.setMaximumWidth(button_max_width - 40)
         self.search_button.clicked.connect(self.search_class)
         self.search_button.setShortcut(QKeySequence("Enter"))
         center_layout.addWidget(self.search_button)
@@ -548,22 +599,30 @@ class find_subject_form(QDialog):
         self.subject_name.setAlignment(Qt.AlignLeft)
         center_layout.addWidget(self.subject_name, stretch=1)
         form_layout.addRow(center_layout)
-        self.note_label = QLabel("Danh sách lớp học bên dưới lấy từ cơ sở dữ liệu của Trường Cao đẳng Công nghệ Thủ Đức")
+        self.note_label = QLabel(
+            "Danh sách lớp học bên dưới lấy từ cơ sở dữ liệu của Trường Cao đẳng Công nghệ Thủ Đức"
+        )
         self.note_label.setAlignment(Qt.AlignCenter)
-        self.note_label.setStyleSheet("""
+        self.note_label.setStyleSheet(
+            """
             QLabel {
                 font-style: italic;
                 color: #666666;
                 padding: 4px;
             }
-                                      """)
+                                      """
+        )
         form_layout.addRow(self.note_label)
-        #Layout list môn hiện tại và tất cả môn học
+        # Layout list môn hiện tại và tất cả môn học
         self.subject_list_layout = QHBoxLayout()
         current_subject_layout = QHBoxLayout()
         self.current_subject_list = QComboBox()
-        self.current_subject_list.currentIndexChanged.connect(self.on_current_subject_change)
-        self.current_subject_list.setStyleSheet("min-width: 150px; max-width: 150px; padding: 5px;")
+        self.current_subject_list.currentIndexChanged.connect(
+            self.on_current_subject_change
+        )
+        self.current_subject_list.setStyleSheet(
+            "min-width: 150px; max-width: 150px; padding: 5px;"
+        )
         self.current_subject_list.addItems(db.get_subjects_name())
         self.current_subject_list.setCurrentIndex(-1)
         current_subject_layout.addWidget(QLabel("Môn hiện tại:"))
@@ -572,10 +631,12 @@ class find_subject_form(QDialog):
         self.subject_list_layout.addStretch(1)
         self.subject_list_layout.addLayout(current_subject_layout)
         self.subject_list_layout.addWidget(QLabel("    "))
-        #Tìm kiếm môn học
+        # Tìm kiếm môn học
         all_subject_layout = QHBoxLayout()
         self.find_subject = QLineEdit()
-        self.find_subject.setStyleSheet("min-width: 150px; max-width: 150px; padding: 5px;")
+        self.find_subject.setStyleSheet(
+            "min-width: 150px; max-width: 150px; padding: 5px;"
+        )
         self.find_subject.setPlaceholderText("Nhập tên môn học..")
         self.find_subject.textChanged.connect(self.search_class_by_name)
         all_subject_layout.addWidget(QLabel("Tìm kiếm:"))
@@ -583,7 +644,7 @@ class find_subject_form(QDialog):
         all_subject_layout.setAlignment(Qt.AlignCenter)
         self.subject_list_layout.addLayout(all_subject_layout)
         self.subject_list_layout.addWidget(QLabel("    "))
-        #Danh sách môn học theo khoa
+        # Danh sách môn học theo khoa
         subjetcs_by_faculty_layout = QHBoxLayout()
         subjetcs_by_faculty_layout.addWidget(QLabel("Khoa:"))
         self.faculty = QComboBox()
@@ -602,44 +663,42 @@ class find_subject_form(QDialog):
         self.subjetcs_by_faculty_list.setStyleSheet("padding: 5px;")
         self.subjetcs_by_faculty_list.setMaximumWidth(200)
         self.subjetcs_by_faculty_list.setMinimumWidth(200)
-        self.subjetcs_by_faculty_list.currentIndexChanged.connect(self.on_subjects_by_change)
+        self.subjetcs_by_faculty_list.currentIndexChanged.connect(
+            self.on_subjects_by_change
+        )
         subjetcs_by_faculty_layout.addWidget(self.subjetcs_by_faculty_list)
         self.subject_list_layout.addLayout(subjetcs_by_faculty_layout)
         self.subject_list_layout.addStretch(1)
-        
+
         form_layout.addRow(self.subject_list_layout)
-        
-        headers = [
-            "Id",
-            "Mã môn",
-            "Mã lớp",
-            "Tên lớp",
-            "Giảng viên",
-            "Thứ",
-            "Bắt đầu",
-            "Kết thúc",
-            "Phòng",
-            "Ngày bắt đầu",
-            "Ngày kết thúc",
-        ]
+
+        # headers = [
+        #     "Id",
+        #     "Mã môn",
+        #     "Mã lớp",
+        #     "Tên lớp",
+        #     "Giảng viên",
+        #     "Thứ",
+        #     "Bắt đầu",
+        #     "Kết thúc",
+        #     "Phòng",
+        #     "Ngày bắt đầu",
+        #     "Ngày kết thúc",
+        # ]
         self.classes_filter = QTableView()
-        self.classes_list = db.get_classes("")
-        self.classes_model = TableModel(self.classes_list, headers)
+        self.classes_list = db.get_classes()
+        self.classes_model = TableModel()
         self.classes_filter.setModel(self.classes_model)
         self.classes_filter.hideColumn(0)
-        self.classes_filter.setColumnWidth(4,200)
-        
+        self.classes_filter.setColumnWidth(4, 200)
 
-        #Hàng nút ở dưới
+        # Hàng nút ở dưới
         button_layout = QHBoxLayout()
         button_style_string = "padding: 5px 12px;"
-        self.export_excel_button = QPushButton("Xuất File Excel")
-        self.export_excel_button.clicked.connect(self.export_excel)
-        self.export_excel_button.setStyleSheet(button_style_string)
         self.update_button = QPushButton("Cập Nhật Vào DB")
         self.update_button.clicked.connect(self.update_database)
         self.update_button.setStyleSheet(button_style_string)
-        self.update_faculty_button = QPushButton(f'Cập Nhật theo Khoa + Học kỳ')
+        self.update_faculty_button = QPushButton(f"Cập Nhật theo Khoa + Học kỳ")
         self.update_faculty_button.clicked.connect(self.update_faculty_database)
         self.update_faculty_button.setStyleSheet(button_style_string)
         self.filter_button = QPushButton("Lọc Đã Qua")
@@ -652,34 +711,33 @@ class find_subject_form(QDialog):
         button_layout.addWidget(QLabel("    "))
         button_layout.addWidget(self.filter_button)
         button_layout.addWidget(self.filter_night_button)
-        button_layout.addWidget(QLabel("    "))
-        button_layout.addWidget(self.export_excel_button)
         button_layout.setAlignment(Qt.AlignCenter)
 
         button_h_layout = QHBoxLayout()
         button_h_layout.addStretch(1)
         button_h_layout.addLayout(button_layout)
         button_h_layout.addStretch(1)
-        
-        form_layout.addRow(QLabel(''))
+
+        form_layout.addRow(QLabel(""))
         form_layout.addRow(button_h_layout)
         form_layout.addRow(self.classes_filter)
 
         self.setLayout(form_layout)
-    
-    
+
     def update_faculty_database(self):
         if self.faculty.currentIndex() != -1:
             faculty_name = self.faculty.currentText()
             semester = self.semester.currentText()
-            subject_name_list = db.get_subjects_by_faculty_semester(faculty_name,semester)
-            
+            subject_name_list = db.get_subjects_by_faculty_semester(
+                faculty_name, semester
+            )
+
             self.add_subject_to_database(subject_name_list)
-            self.update_current_subject()
         else:
-            custom_dialog_2(self,"Vui lòng chọn Khoa và Học kỳ!",False)
-                     
-    def add_subject_to_database(self, subject_list=None):
+            CustomDialog2(self, "Vui lòng chọn Khoa và Học kỳ!", False)
+
+    @staticmethod
+    def add_subject_to_database(subject_list=None):
         if subject_list:
             for subject_name in subject_list:
                 subject_id = db.get_subject_id_by_name(subject_name)
@@ -687,25 +745,29 @@ class find_subject_form(QDialog):
                     subject_info = (subject_id, subject_name)
                     db.add_subject(subject_info)
                 else:
-                    print(f"Subject '{subject_name}' not found in database!")  
-    
+                    print(f"Subject '{subject_name}' not found in database!")
+
     def on_subjects_by_change(self):
         faculty_name = self.faculty.currentText()
         subject_name = self.subjetcs_by_faculty_list.currentText()
         if faculty_name and subject_name:
-            subject_id = db.get_subject_id_by_faculty_subject_name(faculty_name,subject_name)
+            subject_id = db.get_subject_id_by_faculty_subject_name(
+                faculty_name, subject_name
+            )
             self.search_class(subject_id)
-    
+
     def on_semester_change(self):
         faculty_name = self.faculty.currentText()
         semester = self.semester.currentText()
         subjects_list = self.subjetcs_by_faculty_list
         if faculty_name and semester:
             subjects_list.clear()
-            subjects_list.addItems(db.get_subjects_by_faculty_semester(faculty_name,semester))
+            subjects_list.addItems(
+                db.get_subjects_by_faculty_semester(faculty_name, semester)
+            )
         else:
             subjects_list.clear()
-    
+
     def on_faculty_change(self):
         semester_list = self.semester
         faculty_name = self.faculty.currentText()
@@ -714,59 +776,71 @@ class find_subject_form(QDialog):
             semester_list.addItems(db.get_semester_by_faculty(faculty_name))
         else:
             semester_list.clear()
-    
+
     def search_class_by_name(self):
         text = self.find_subject.text().strip()
         if text:
             data = db.find_subject(text)
-            self.classes_model = TableModel(data, ['id','Mã môn','Tên môn'])
+            self.classes_model = TableModel(data, ["id", "Mã môn", "Tên môn"])
             self.classes_filter.setModel(self.classes_model)
             self.classes_filter.hideColumn(0)
-            self.classes_filter.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-    
+            self.classes_filter.horizontalHeader().setSectionResizeMode(
+                QHeaderView.Stretch
+            )
+
     def on_current_subject_change(self):
         if self.current_subject_list.currentIndex() == -1:
             return
         suject_id = subject_id_dict[self.current_subject_list.currentText()]
         self.search_class(suject_id)
 
-    def filter_night(self,_data=None):
+    def filter_night(self, _data=None):
+        data_filtered = []
         if not _data:
             data = self.classes_model._data
         else:
             data = _data
         time_2 = datetime.strptime("18:00", "%H:%M").time()
         if data:
-                data_filtered = [class_info for class_info in data if datetime.strptime(class_info[6], "%H:%M").time() < time_2]
+            data_filtered = [
+                class_info
+                for class_info in data
+                if datetime.strptime(class_info[6], "%H:%M").time() < time_2
+            ]
         if not _data:
             self.classes_model._data = data_filtered
             self.classes_model.layoutChanged.emit()
             self.classes_filter.hideColumn(0)
-            self.classes_filter.setColumnWidth(3,150)
-            self.classes_filter.setColumnWidth(4,200)
-            self.classes_filter.setColumnWidth(5,80)
+            self.classes_filter.setColumnWidth(3, 150)
+            self.classes_filter.setColumnWidth(4, 200)
+            self.classes_filter.setColumnWidth(5, 80)
         else:
             return data_filtered
-            
-    def filter_over(self,_data=None):
+
+    def filter_over(self, _data=None):
+        data_filtered = []
         if not _data:
             data = self.classes_model._data
         else:
             data = _data
         today = datetime.today().date()
         if data:
-            data_filtered = [class_info for class_info in data if datetime.strptime(class_info[9], "%d/%m/%Y").date()>today]
+            data_filtered = [
+                class_info
+                for class_info in data
+                if datetime.strptime(class_info[9], "%d/%m/%Y").date() > today
+            ]
         if not _data:
             self.classes_model._data = data_filtered
             self.classes_model.layoutChanged.emit()
             self.classes_filter.hideColumn(0)
-            self.classes_filter.setColumnWidth(3,150)
-            self.classes_filter.setColumnWidth(4,200)
-            self.classes_filter.setColumnWidth(5,80)
+            self.classes_filter.setColumnWidth(3, 150)
+            self.classes_filter.setColumnWidth(4, 200)
+            self.classes_filter.setColumnWidth(5, 80)
         else:
             return data_filtered
-        
-    def search_class(self,subject_id=None):
+
+    def search_class(self, subject_id=None):
         if not subject_id:
             data = search.search(self.subject_id_edit.text().strip())
         else:
@@ -793,48 +867,17 @@ class find_subject_form(QDialog):
             self.subject_name.setAlignment(Qt.AlignCenter)
             self.subject_name.setFont(bold_font)
             self.classes_filter.hideColumn(0)
-            self.classes_filter.setColumnWidth(3,150)
-            self.classes_filter.setColumnWidth(4,200)
-            self.classes_filter.setColumnWidth(5,80)
+            self.classes_filter.setColumnWidth(3, 150)
+            self.classes_filter.setColumnWidth(4, 200)
+            self.classes_filter.setColumnWidth(5, 80)
         else:
-            self.classes_model._headers = []
-            self.classes_model._data = []
+            self.classes_model._headers = None
+            self.classes_model._data = None
             self.classes_filter.setSelectionBehavior(QTableView.SelectRows)
             self.classes_model.layoutChanged.emit()
-            self.subject_name.setText('')
-                
-    def export_excel(self):
-        
-        file_path, _ = QFileDialog.getSaveFileName(
-            self,  # Widget cha
-            "Lưu tệp",  # Tiêu đề hộp thoại
-            "Output",  # Đường dẫn mặc định
-            "Excel Files (*.xlsx)",  # Bộ lọc định dạng tệp
-        )
-        
-        model = self.classes_model
-        
-        workbook = Workbook()
-        sheet = workbook.active
-        
-        # Ghi tiêu đề cột
-        for column in range(model.columnCount()):
-            header = model.headerData(column, orientation=Qt.Horizontal)  # orientation=1 là horizontal (tiêu đề cột)
-            sheet.cell(row=1, column=column + 1, value=header)
-            
-        # Ghi dữ liệu hàng
-        for row in range(model.rowCount()):
-            for column in range(model.columnCount()):
-                value = model.data(model.index(row, column))
-                sheet.cell(row=row + 2, column=column + 1, value=value)
-                
-        # Lưu file
-        if file_path:
-            workbook.save(file_path)
-            dialog = custom_dialog_2(None, f"Đã lưu file vào:   {file_path}", False)
-            dialog.exec()
-    
-    def update_database(self,subject_list_model):
+            self.subject_name.setText("")
+
+    def update_database(self):
         data = self.classes_model._data
         class_list = []
         if data:
@@ -849,69 +892,70 @@ class find_subject_form(QDialog):
                     row[5],
                     row[6],
                     row[7],
-                    row[8]
+                    row[8],
                 )
                 class_list.append(class_row)
-            db.update_database(subject_id,subject_name,class_list)
-            dialog = custom_dialog_2(self,"Cập nhật thành công!", False)
+            db.update_database(subject_id, subject_name, class_list)
+            dialog = CustomDialog2(self, "Cập nhật thành công!", False)
             dialog.exec()
-        
 
-class subject_by_facaulty_dialog(QDialog):
+
+class SubjectByFacaultyDialog(QDialog):
     def __init__(self, parent=None):
         super().__init__()
+        self.parent = parent
         self.setWindowTitle("Form Chọn Khoa và Học kỳ")
         self.setModal(True)
-        
+
         form_layout = QFormLayout()
-        
+
         self.faculty = QComboBox()
         self.faculty.addItems(db.get_all_faculty())
         self.faculty.currentIndexChanged.connect(self.on_faculty_change)
         self.faculty.setStyleSheet("padding: 5px 10px;")
         self.faculty.setCurrentIndex(-1)
-        form_layout.addRow('Khoa: ',self.faculty)
-        
+        form_layout.addRow("Khoa: ", self.faculty)
+
         self.semester = QComboBox()
         self.semester.setStyleSheet("padding: 5px 10px;")
         self.semester.currentIndexChanged.connect(self.on_semester_change)
-        form_layout.addRow('Học kỳ:',self.semester)
+        form_layout.addRow("Học kỳ:", self.semester)
 
         button_layout = QHBoxLayout()
         button_layout.setAlignment(Qt.AlignCenter)
-        self.ok_button = QPushButton('Xác Nhận')
+        self.ok_button = QPushButton("Xác Nhận")
         self.ok_button.clicked.connect(self.accept)
         self.ok_button.setMinimumWidth(150)
         self.ok_button.setMinimumHeight(35)
-        
-        self.cancel_button = QPushButton('Hủy')
+
+        self.cancel_button = QPushButton("Hủy")
         self.cancel_button.clicked.connect(self.reject)
         self.cancel_button.setMinimumWidth(150)
         self.cancel_button.setMinimumHeight(35)
 
         button_layout.addWidget(self.ok_button)
         button_layout.addWidget(self.cancel_button)
-        
+
         self.class_list_view = QListView()
-        form_layout.addRow('',self.class_list_view)
-        
-        form_layout.addRow('', QLabel())
-        form_layout.addRow('',button_layout)
+        form_layout.addRow("", self.class_list_view)
+
+        form_layout.addRow("", QLabel())
+        form_layout.addRow("", button_layout)
         self.setLayout(form_layout)
-    
+
     def get_semester(self):
         return self.semester.currentText()
-    
+
     def get_faculty_name(self):
         return self.faculty.currentText()
-    
+
     def on_semester_change(self):
         faculty = self.faculty.currentText()
         semester = self.semester.currentText()
-        data = db.get_subjects_by_faculty_semester(faculty,semester)
-        class_view_model = list_model(data)
+        data = db.get_subjects_by_faculty_semester(faculty, semester)
+        class_view_model = CustomListModel(data)
         self.class_list_view.setModel(class_view_model)
-    
+
     def on_faculty_change(self):
         faculty_name = self.faculty.currentText()
         self.semester.clear()
@@ -921,11 +965,17 @@ class subject_by_facaulty_dialog(QDialog):
 def export_to_image(table_view, file_name):
     table_view.repaint()
     # Determine the size of the table view
-    table_width = sum(table_view.columnWidth(col) for col in range(table_view.columnCount()))
-    table_height = table_view.verticalHeader().length() + table_view.horizontalHeader().height()
+    table_width = sum(
+        table_view.columnWidth(col) for col in range(table_view.columnCount())
+    )
+    table_height = (
+        table_view.verticalHeader().length() + table_view.horizontalHeader().height()
+    )
 
     # Create an image and render the table view onto it
-    image = QImage(table_width+table_view.columnWidth(0), table_height+20, QImage.Format_ARGB32)
+    image = QImage(
+        table_width + table_view.columnWidth(0), table_height + 20, QImage.Format_ARGB32
+    )
     image.fill(0xFFFFFF)  # Set white background
     painter = QPainter(image)
     table_view.render(painter, QPoint(0, 0))
@@ -933,7 +983,7 @@ def export_to_image(table_view, file_name):
 
     # Save the image
     image.save(file_name)
-    dialog = custom_dialog_2(None, f"Đã lưu ảnh vào:   {file_name}", False)
+    dialog = CustomDialog2(None, f"Đã lưu ảnh vào:   {file_name}", False)
     dialog.exec()
 
 
@@ -955,13 +1005,14 @@ class ScheduleWindow(QMainWindow):
                 border-bottom: 3px solid rgb(135, 135, 135);
             }
         """
-        
+
         self.default_font = QFont()
         self.default_font.setBold(False)
 
-        #Tạo Menubar
+        # Tạo Menubar
         menubar = self.menuBar()
-        menubar.setStyleSheet("""
+        menubar.setStyleSheet(
+            """
             QMenuBar {
                 font-size: 14px;
                 font-family: Arial, sans-serif;
@@ -988,35 +1039,36 @@ class ScheduleWindow(QMainWindow):
                 background: #f0f0f0;
                 height: 1px;
             }
-        """)
-        
-        space_string = '          '
-        file_menu = menubar.addMenu('File')
-        open_action = QAction(f'Mở file{space_string}',self)
+        """
+        )
+
+        space_string = "          "
+        file_menu = menubar.addMenu("File")
+        open_action = QAction(f"Mở file{space_string}", self)
         open_action.setShortcut(QKeySequence("Ctrl+O"))
         open_action.triggered.connect(self.open_file)
         file_menu.addAction(open_action)
-        
-        save_action = QAction('Lưu file',self)
+
+        save_action = QAction("Lưu file", self)
         save_action.triggered.connect(self.save_file)
         save_action.setShortcut(QKeySequence("Ctrl+S"))
         file_menu.addAction(save_action)
-        
+
         file_menu.addSeparator()
 
-        exit_action = QAction('Thoát',self)
+        exit_action = QAction("Thoát", self)
         exit_action.triggered.connect(self.close_app)
         exit_action.setShortcut(QKeySequence("Alt+F4"))
         file_menu.addAction(exit_action)
-        
+
         refresh_shortcut = QShortcut(QKeySequence("F5"), self)
         refresh_shortcut.activated.connect(self.refresh_view)
-        
-        help_menu = menubar.addMenu('Help')
-        
-        countdown_action = QAction('Countdown',self)
+
+        help_menu = menubar.addMenu("Help")
+
+        countdown_action = QAction("Countdown", self)
         countdown_action.triggered.connect(self.countdown)
-        update_action = QAction(f'Update{space_string}', self)
+        update_action = QAction(f"Update{space_string}", self)
         update_action.triggered.connect(self.update_version)
         help_menu.addAction(countdown_action)
         help_menu.addAction(update_action)
@@ -1070,14 +1122,14 @@ class ScheduleWindow(QMainWindow):
         self.subject_label = QLabel()
         self.subject_label.setText("Môn học:   0 đã chọn")
         self.subject_label.setContentsMargins(10, 0, 0, 0)
-        
-        #Layout phần hiển thị lớp
+
+        # Layout phần hiển thị lớp
         self.class_layout = QHBoxLayout()
         self.class_label = QLabel("Lớp học tương ứng:")
         self.class_label.setContentsMargins(10, 0, 0, 0)
         self.class_layout.addWidget(self.class_label)
-        
-        #Bộ công cụ QPushButton cho lớp
+
+        # Bộ công cụ QPushButton cho lớp
         self.class_button_layout = QHBoxLayout()
         self.filter_category = QComboBox()
         self.filter_category.addItems(["Tất cả", "Giảng viên", "Thứ", "Buổi"])
@@ -1106,7 +1158,9 @@ class ScheduleWindow(QMainWindow):
         self.subjects_list = db.get_subjects_name()
         self.subjects_model = ListModel(self.subjects_list)
         self.subjects.setModel(self.subjects_model)
-        self.subjects.selectionModel().selectionChanged.connect(self.on_subject_view_change)
+        self.subjects.selectionModel().selectionChanged.connect(
+            self.on_subject_view_change
+        )
 
         # List Lớp Học tương ứng
         self.classes = QTableView()
@@ -1126,7 +1180,9 @@ class ScheduleWindow(QMainWindow):
         self.classes_model = TableModel(self.classes_list, headers)
         self.classes.setModel(self.classes_model)
         self.classes.hideColumn(0)
-        self.classes.selectionModel().selectionChanged.connect(self.on_class_table_change)  # Cập nhật thời khóa biểu khi người dùng chọn lớp
+        self.classes.selectionModel().selectionChanged.connect(
+            self.on_class_table_change
+        )  # Cập nhật thời khóa biểu khi người dùng chọn lớp
         self.classes.setSelectionBehavior(QTableView.SelectRows)
         subject_class_layout.addWidget(self.subjects, stretch=1)
         subject_class_layout.addWidget(self.classes, stretch=5)
@@ -1135,11 +1191,13 @@ class ScheduleWindow(QMainWindow):
         # Thêm nút để kiểm tra khả năng chỉnh sửa
         self.button_height = 30
         button_layout = QHBoxLayout()
-        self.sort_button = QPushButton('Sắp Xếp')
+        self.sort_button = QPushButton("Sắp Xếp")
         self.sort_button.clicked.connect(self.sort_subject_list)
         self.update_current_subject_button = QPushButton("Cập Nhật Nhanh")
         self.update_current_subject_button.clicked.connect(self.update_current_subject)
-        self.update_current_subject_button.setToolTip("Cập nhật lớp của những môn hiện tại")
+        self.update_current_subject_button.setToolTip(
+            "Cập nhật lớp của những môn hiện tại"
+        )
         self.update_by_faculty_button = QPushButton("Cập Nhật Theo Khoa")
         self.update_by_faculty_button.clicked.connect(self.update_by_faculty_subject)
         self.export_button = QPushButton("Lưu Ảnh", self)
@@ -1153,22 +1211,29 @@ class ScheduleWindow(QMainWindow):
         self.deselect_button = QPushButton("Bỏ Chọn", self)
         self.deselect_button.clicked.connect(self.deselect)
         self.deselect_button.setStyleSheet(self.disable_button_style_string)
-        
-        #Danh sách nút
-        button_normal_list = [self.sort_button,self.update_by_faculty_button, self.export_button,self.add_subject_button,self.deselect_button,self.update_current_subject_button]
-        button_red_list = [self.delete_subject_button,self.delete_all_button]
-        #Set style cho nút bình thường
+
+        # Danh sách nút
+        button_normal_list = [
+            self.sort_button,
+            self.update_by_faculty_button,
+            self.export_button,
+            self.add_subject_button,
+            self.deselect_button,
+            self.update_current_subject_button,
+        ]
+        button_red_list = [self.delete_subject_button, self.delete_all_button]
+        # Set style cho nút bình thường
         for button in button_normal_list + button_red_list:
             button.setMinimumHeight(button_height)
             button.setMaximumWidth(160)
-        
-        #Set style các cho nút xóa
+
+        # Set style các cho nút xóa
         for button in button_red_list:
             button.setStyleSheet(red_button_style_string)
-        
+
         self.sort_button.setMaximumWidth(90)
         self.update_current_subject_button.setMaximumWidth(130)
-        
+
         button_layout.addWidget(self.add_subject_button)
         button_layout.addWidget(self.export_button)
         button_layout.addWidget(self.deselect_button)
@@ -1190,16 +1255,20 @@ class ScheduleWindow(QMainWindow):
         layout.addLayout(subject_class_layout, stretch=3)
 
     def countdown(self):
-        dialog = CountdownApp(self,future=QDateTime(2025,2,6,8,0,0))
+        dialog = CountdownApp(self, future=QDateTime(2025, 2, 6, 8, 0, 0))
         dialog.exec()
 
     def update_version(self):
         if current_version == get_latest_version():
-            dialog = custom_dialog_2(self,text=f"Bạn đang dùng phiên bản mới nhất!\n{current_version}",bold=False)
+            dialog = CustomDialog2(
+                self,
+                text=f"Bạn đang dùng phiên bản mới nhất!\n{current_version}",
+                bold=False,
+            )
             dialog.exec()
         else:
-            string = f'Version hiện tại: {current_version}\nVersion mới nhất: {get_latest_version()}\n\nTải xuống chứ?'
-            dialog = update_version_dialog(text=string)
+            string = f"Version hiện tại: {current_version}\nVersion mới nhất: {get_latest_version()}\n\nTải xuống chứ?"
+            dialog = UpdateVersionDialog(text=string)
             if dialog.exec():
                 dialog.close()
                 update_software()
@@ -1212,24 +1281,28 @@ class ScheduleWindow(QMainWindow):
 
     def update_by_faculty_subject(self):
         global subjects_list, class_info_dict, overlap_dict, subject_id_dict
-        dialog = subject_by_facaulty_dialog(self)
+        dialog = SubjectByFacaultyDialog(self)
         if dialog.exec():
             faculty = dialog.get_faculty_name()
             semester = dialog.get_semester()
-            data = db.get_subjects_by_faculty_semester(faculty,semester)
+            data = db.get_subjects_by_faculty_semester(faculty, semester)
             db.delete_class_all()
             for subject_name in data:
-                subject_info = (db.get_subject_id_by_name(subject_name),subject_name)
+                subject_info = (db.get_subject_id_by_name(subject_name), subject_name)
                 db.add_subject(subject_info)
             subjects_list = data
-            class_info_dict = {subjects_list[i]: None for i in range(len(subjects_list))}
+            class_info_dict = {
+                subjects_list[i]: None for i in range(len(subjects_list))
+            }
             overlap_dict = {subjects_list[i]: 0 for i in range(len(subjects_list))}
-            subject_id_dict = {subject[1]:subject[0] for subject in db.get_subjects_id_name()}
+            subject_id_dict = {
+                subject[1]: subject[0] for subject in db.get_subjects_id_name()
+            }
             self.update_current_subject()
-            custom_dialog_2(self,'Cập nhật thành công!',False)
+            CustomDialog2(self, "Cập nhật thành công!", False)
             self.subjects_model._data = data
             self.subjects_model.layoutChanged.emit()
-        else: 
+        else:
             pass
 
     def update_current_subject(self):
@@ -1251,60 +1324,67 @@ class ScheduleWindow(QMainWindow):
                             row[5],
                             row[6],
                             row[7],
-                            row[8]
+                            row[8],
                         )
                         class_list.append(class_row)
-                    db.update_database(subject_id,subject_name,class_list)
-        dialog = custom_dialog_2(self,"Cập nhật thành công!", False)
+                    db.update_database(subject_id, subject_name, class_list)
+        dialog = CustomDialog2(self, "Cập nhật thành công!", False)
         dialog.exec()
 
-    def filter_night(self,_data=None):
+    def filter_night(self, _data=None):
+        data_filtered = []
         if not _data:
             data = self.classes_model._data
         else:
             data = _data
         time_2 = datetime.strptime("18:00", "%H:%M").time()
         if data:
-                data_filtered = [class_info for class_info in data if datetime.strptime(class_info[6], "%H:%M").time() < time_2]
+            data_filtered = [
+                class_info
+                for class_info in data
+                if datetime.strptime(class_info[6], "%H:%M").time() < time_2
+            ]
         if not _data:
             self.classes_model._data = data_filtered
             self.classes_model.layoutChanged.emit()
-            self.classes_filter.hideColumn(0)
-            self.classes_filter.setColumnWidth(3,150)
-            self.classes_filter.setColumnWidth(4,200)
-            self.classes_filter.setColumnWidth(5,80)
         else:
             return data_filtered
-            
-    def filter_over(self,_data=None):
+
+    def filter_over(self, _data=None):
+        data_filtered = []
         if not _data:
             data = self.classes_model._data
         else:
             data = _data
         today = datetime.today().date()
         if data:
-            data_filtered = [class_info for class_info in data if datetime.strptime(class_info[9], "%d/%m/%Y").date()>today]
+            data_filtered = [
+                class_info
+                for class_info in data
+                if datetime.strptime(class_info[9], "%d/%m/%Y").date() > today
+            ]
         if not _data:
             self.classes_model._data = data_filtered
             self.classes_model.layoutChanged.emit()
-            self.classes_filter.hideColumn(0)
-            self.classes_filter.setColumnWidth(3,150)
-            self.classes_filter.setColumnWidth(4,200)
-            self.classes_filter.setColumnWidth(5,80)
         else:
             return data_filtered
 
-    def close_app(self):
+    @staticmethod
+    def close_app():
         QApplication.quit()
 
     def save_file(self):
-        file_path, _ = QFileDialog.getSaveFileName(self, "Class Infos", "", "JSON Files (*.json)")
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, "Class Infos", "", "JSON Files (*.json)"
+        )
         if file_path:
             try:
                 with open(file_path, "w", encoding="utf-8") as file:
-                    json.dump(class_info_dict, file, indent=4)  # Lưu dữ liệu class_info vào file JSON
+                    json.dump(
+                        class_info_dict, file, indent=4
+                    )  # Lưu dữ liệu class_info vào file JSON
             except Exception as e:
-                print(f"Lỗi lưu file: {e}")
+                print(f"Lỗi lưu file: {str(e)}")
 
     def open_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "", "", "JSON Files (*.json)")
@@ -1312,31 +1392,37 @@ class ScheduleWindow(QMainWindow):
         global subjects_list
         global overlap_dict
         global subject_id_dict
-        print(class_info_dict)
         if file_path:
             try:
                 with open(file_path, "r", encoding="utf-8") as file:
                     data = json.load(file)
-                    for key,value in data.items():
+                    for key, value in data.items():
                         class_info_dict[key] = value
-                    #Chuyển list (mặc định của json) thành tuple
+                    # Chuyển list (mặc định của json) thành tuple
                     for key, value in class_info_dict.items():
                         if value:
                             class_info_dict[key] = tuple(value)
-                    
+
                     subject_lack_list = self.check_subject_in_file()
                     if subject_lack_list:
-                        dialog = add_subject_to_database_dialog(self,subject_lack_list)
+                        dialog = AddSubjectToDatabaseDialog(self, subject_lack_list)
                         if dialog.exec():
                             self.add_subject_to_database(subject_lack_list)
                             subjects_list = db.get_subjects_name()
-                            overlap_dict = {subjects_list[i]: 0 for i in range(len(subjects_list))}
-                            subject_id_dict = {subject[1]:subject[0] for subject in db.get_subjects_id_name()}
+                            overlap_dict = {
+                                subjects_list[i]: 0 for i in range(len(subjects_list))
+                            }
+                            subject_id_dict = {
+                                subject[1]: subject[0]
+                                for subject in db.get_subjects_id_name()
+                            }
                             self.update_current_subject()
                             self.subjects_model.layoutChanged.emit()
-                    
+
                     self.check_overlap()
-                    self.subject_label.setText(f"Môn học:   {self.subject_count()} đã chọn")
+                    self.subject_label.setText(
+                        f"Môn học:   {self.subject_count()} đã chọn"
+                    )
                     self.set_schedule_data()
                     self.customize_header()
             except Exception as e:
@@ -1349,43 +1435,48 @@ class ScheduleWindow(QMainWindow):
                 if subject_id is not None:  # Kiểm tra nếu subject_id hợp lệ
                     subject_info = (subject_id, subject_name)
                     db.add_subject(subject_info)
-                    self.subjects_model._data.append((subject_name))
+                    self.subjects_model._data.append(subject_name)
                     self.subjects_model.layoutChanged.emit()
                 else:
-                    print(f"Subject '{subject_name}' not found in database!")                 
-    
-    def check_subject_in_file(self):
+                    print(f"Subject '{subject_name}' not found in database!")
+
+    @staticmethod
+    def check_subject_in_file():
         data = []
         for key in class_info_dict.keys():
             if not key in subjects_list:
                 data.append(key)
         return data
-    
+
     def on_filter_list_change(self):
         category_text = self.filter_category.currentText()
         text = self.filter_list.currentText()
         subject_name = self.subjects_model.data(
-                self.subjects.selectedIndexes()[0], Qt.DisplayRole
-            )
-        
-        if category_text == 'Tất cả':
+            self.subjects.selectedIndexes()[0], Qt.DisplayRole
+        )
+
+        if category_text == "Tất cả":
             self.classes_list = db.get_classes(subject_name)
-        elif category_text == 'Giảng viên':
+        elif category_text == "Giảng viên":
             if text:
-                self.classes_list = db.get_classes_by_subject_teacher(subject_name,text)
+                self.classes_list = db.get_classes_by_subject_teacher(
+                    subject_name, text
+                )
             else:
                 pass
-        elif category_text == 'Thứ':
+        elif category_text == "Thứ":
             if text:
-                self.classes_list = db.get_classes_by_subject_weekday(subject_name,weekday_int[text])
+                self.classes_list = db.get_classes_by_subject_weekday(
+                    subject_name, weekday_int[text]
+                )
             else:
                 pass
-        elif category_text == 'Buổi':
-            self.classes_list = db.get_classes_by_subject_phase(subject_name,text)
-    
+        elif category_text == "Buổi":
+            self.classes_list = db.get_classes_by_subject_phase(subject_name, text)
+
         self.classes_model._data = self.classes_list
-        
-        #Gọi hàm chọn lớp hiện tại
+
+        # Gọi hàm chọn lớp hiện tại
         self.selected_class_in_subject(subject_name)
 
         self.classes_model.layoutChanged.emit()
@@ -1393,7 +1484,9 @@ class ScheduleWindow(QMainWindow):
 
     def on_filter_category_change(self):
         category = self.filter_category.currentText()
-        subject_name = self.subjects_model._data[self.subjects.selectedIndexes()[0].row()]
+        subject_name = self.subjects_model._data[
+            self.subjects.selectedIndexes()[0].row()
+        ]
         if category == "Tất cả":
             self.filter_list.clear()
         elif category == "Giảng viên":
@@ -1406,12 +1499,12 @@ class ScheduleWindow(QMainWindow):
             self.filter_list.addItems(weekdays)
         elif category == "Buổi":
             self.filter_list.clear()
-            self.filter_list.addItems(["Sáng", "Chiều"])    
-           
+            self.filter_list.addItems(["Sáng", "Chiều"])
+
     def filter_class(self):
-        dialog = custom_dialog_2(self, "Chức năng đang được phát triển!", False)
+        dialog = CustomDialog2(self, "Chức năng đang được phát triển!", False)
         dialog.exec()
-    
+
     def refresh_view(self):
         subjects_list = db.get_subjects_name()
         global class_info_dict
@@ -1435,7 +1528,8 @@ class ScheduleWindow(QMainWindow):
         self.subject_label.setText(f"Môn học:   {self.subject_count()} đã chọn")
         self.set_schedule_data()
 
-    def subject_count(self):
+    @staticmethod
+    def subject_count():
         count = sum(1 for value in class_info_dict.values() if value is not None)
         return count
 
@@ -1473,7 +1567,7 @@ class ScheduleWindow(QMainWindow):
             class_time_start = class_info[6]
             class_time_end = class_info[7]
             class_id = class_info[2]
-            dialog = custom_dialog(
+            dialog = CustomDialog(
                 self,
                 f"Bạn muốn xóa lớp\n【 {class_name} 】\n{class_weekday}\n{class_time_start} ➞ {class_time_end}\nMã lớp:  {class_id}?",
                 False,
@@ -1482,10 +1576,10 @@ class ScheduleWindow(QMainWindow):
                 try:
                     db.delete_class(class_id)
                     self.on_subject_view_change()
-                except:
-                    pass
+                except Exception as e:
+                    print(str(e))
         else:
-            dialog = custom_dialog_2(self, "Vui lòng chọn lớp cần xóa!", False)
+            dialog = CustomDialog2(self, "Vui lòng chọn lớp cần xóa!", False)
             dialog.exec()
 
     def delete_subject(self):
@@ -1493,7 +1587,7 @@ class ScheduleWindow(QMainWindow):
             indexes = self.subjects.selectedIndexes()
             index = indexes[0]
             subject_name = self.subjects_model._data[index.row()]
-            dialog = custom_dialog(self, f"Bạn muốn xóa môn 【 {subject_name} 】?")
+            dialog = CustomDialog(self, f"Bạn muốn xóa môn 【 {subject_name} 】?")
             if dialog.exec():
                 try:
                     db.delete_subject(subject_name)
@@ -1502,12 +1596,12 @@ class ScheduleWindow(QMainWindow):
                 except:
                     pass
         else:
-            dialog = custom_dialog_2(self, "Vui lòng chọn môn học cần xóa!", False)
+            dialog = CustomDialog2(self, "Vui lòng chọn môn học cần xóa!", False)
             dialog.exec()
 
     def delete_all(self):
         global subjects_list
-        dialog = custom_dialog(
+        dialog = CustomDialog(
             self,
             "Bạn muốn xóa TẤT CẢ dữ liệu?\n\nLưu ý: Không thể hoàn tác!\n",
             bold=False,
@@ -1524,7 +1618,7 @@ class ScheduleWindow(QMainWindow):
                 pass
 
     def add_subject(self):
-        dialog = find_subject_form(subject_list_model=self.subjects_model)
+        dialog = FindSubjectForm(subject_list_model=self.subjects_model)
         global subjects_list, class_info_dict, overlap_dict, subject_id_dict
         old_subjects_list_len = len(subjects_list)
         if dialog.exec() == 0:
@@ -1556,16 +1650,16 @@ class ScheduleWindow(QMainWindow):
             self.classes_model._data = self.classes_list
             self.class_label.setText(f"Lớp học tương ứng:    【 {selected_text} 】")
             self.classes.clearSelection()
-                
-            #Gọi hàm chọn lớp hiện tại
+
+            # Gọi hàm chọn lớp hiện tại
             self.selected_class_in_subject(selected_text)
 
             self.classes_model.layoutChanged.emit()
             self.set_schedule_data()
             self.classes.hideColumn(0)
             self.on_filter_category_change()
-    
-    def selected_class_in_subject(self,subject_name):
+
+    def selected_class_in_subject(self, subject_name):
         class_info = class_info_dict[subject_name]
         model = self.classes_model
         row_count = model.rowCount()
@@ -1575,7 +1669,11 @@ class ScheduleWindow(QMainWindow):
             weekday = class_info[5]
             time_start = class_info[6]
             for row in range(row_count):
-                check = (class_id == model.index(row, 2).data() and weekday == model.index(row, 5).data() and time_start == model.index(row, 6).data())
+                check = (
+                    class_id == model.index(row, 2).data()
+                    and weekday == model.index(row, 5).data()
+                    and time_start == model.index(row, 6).data()
+                )
                 if check:
                     self.classes.selectRow(row)
                     match_index = row
@@ -1622,15 +1720,15 @@ class ScheduleWindow(QMainWindow):
                 class_info += (self.classes_model.data(index),)
             class_info_dict[row_data[3]] = class_info
             self.check_overlap()
-            
+
             self.subject_label.setText(f"Môn học:   {self.subject_count()} đã chọn")
             self.set_schedule_data()
-    
+
     def set_schedule_data(self):
 
         self.table.clearContents()
         self.reset_table_span()
-        
+
         time_rows = {
             "07:00": 1,
             "07:45": 2,
@@ -1649,10 +1747,12 @@ class ScheduleWindow(QMainWindow):
             "16:55": 13,
             "17:40": 14,
         }
-        
+
         for subject, info in class_info_dict.items():
             if info:
-                for entry in ([info] if isinstance(info, tuple) else info):  # Xử lý cả trường hợp tuple hoặc list
+                for entry in (
+                    [info] if isinstance(info, tuple) else info
+                ):  # Xử lý cả trường hợp tuple hoặc list
                     (
                         id,
                         subject_id,
@@ -1739,7 +1839,7 @@ class ScheduleWindow(QMainWindow):
             export_to_image(self.table, file_path)
 
     def closeEvent(self, event):
-        dialog = custom_dialog(self, "Bạn chắc chắn muốn thoát chứ?")
+        dialog = CustomDialog(self, "Bạn chắc chắn muốn thoát chứ?")
         dialog.show()
         if dialog.exec():
             event.accept()
@@ -1765,7 +1865,7 @@ class ScheduleWindow(QMainWindow):
                 """
         )
 
-    #Hàm kiểm tra trùng lịch, chạy khi chọn lớp học
+    # Hàm kiểm tra trùng lịch, chạy khi chọn lớp học
     def check_overlap(self):
         global overlap_dict
         overlap_dict = {subjects_list[i]: 0 for i in range(len(subjects_list))}
@@ -1782,8 +1882,8 @@ class ScheduleWindow(QMainWindow):
 
                     # Kiểm tra nếu có trùng thời gian
                     if len(values1) > 6 and len(values2) > 6:
-                        check = (values1[6] >= values2[6] and values1[6] < values2[7]) or (
-                            values1[7] > values2[6] and values1[7] <= values2[7]
+                        check = (values2[6] <= values1[6] < values2[7]) or (
+                            values2[6] < values1[7] <= values2[7]
                         )
                         if check:
                             overlap_dict[subject1] = 1
@@ -1793,9 +1893,9 @@ class ScheduleWindow(QMainWindow):
             self.subjects_model.index(0),
             self.subjects_model.index(len(self.subjects_model._data) - 1),
             [Qt.DisplayRole, Qt.ForegroundRole, Qt.FontRole],
-        )                                   
-                            
-        
+        )
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setStyleSheet(
